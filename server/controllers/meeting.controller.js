@@ -4,7 +4,6 @@ import {
   updateMeetingStatusService,
   getMeetingService,
   updateMeetingService,
-  getPDFMeetingService,
 } from '../services/meeting/service'
 import { generateMeetingPdfService } from '../services/meeting/generate-meeting-pdf.service'
 

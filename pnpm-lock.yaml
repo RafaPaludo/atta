@@ -48,6 +48,9 @@ importers:
       eslint:
         specifier: 9.39.1
         version: 9.39.1(jiti@2.6.1)
+      nuxt-cron:
+        specifier: ^1.8.0
+        version: 1.8.0(magicast@0.5.1)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -1624,6 +1627,9 @@ packages:
   '@types/leaflet@1.7.6':
     resolution: {integrity: sha512-Emkz3V08QnlelSbpT46OEAx+TBZYTOX2r1yM7W+hWg5+djHtQ1GbEXBDRLaqQDOYcDI51Ss0ayoqoKD4CtLUDA==}
 
+  '@types/luxon@3.4.2':
+    resolution: {integrity: sha512-TifLZlFudklWlMBfhubvgqTXRzLDI5pCbGa4P8a3wPyUQSW+1xQ5eDsreP9DWHX3tjq1ke96uYG/nwundroWcA==}
+
   '@types/mapbox__point-geometry@0.1.4':
     resolution: {integrity: sha512-mUWlSxAmYLfwnRBmgYV86tgYmMIICX4kza8YnE/eIlywGe2XoOxlpVnXWwir92xRLjwyarqwpu2EJKD2pk0IUA==}
 
@@ -2377,6 +2383,9 @@ packages:
   crc32-stream@6.0.0:
     resolution: {integrity: sha512-piICUB6ei4IlTv1+653yq5+KoqfBYmj9bw6LqXoOneTMDXk5nM1qt12mFW1caG3LlJXEKW1Bp0WggEmIfQB34g==}
     engines: {node: '>= 14'}
+
+  cron@3.5.0:
+    resolution: {integrity: sha512-0eYZqCnapmxYcV06uktql93wNWdlTmmBFP2iYz+JPVcQqlyFYcn1lFuIk4R54pkOmE7mcldTAPZv6X5XA4Q46A==}
 
   croner@9.1.0:
     resolution: {integrity: sha512-p9nwwR4qyT5W996vBZhdvBCnMhicY5ytZkR4D1Xj0wuTDEiMnjwR57Q3RXYY/s0EpX6Ay3vgIcfaR+ewGHsi+g==}
@@ -3621,6 +3630,10 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
+  luxon@3.5.0:
+    resolution: {integrity: sha512-rh+Zjr6DNfUYR3bPwJEnuwDdqMbxZW7LOQfUN4B54+Cl+0o5zaU9RJ6bcidfDtC1cWCZXQ+nvX8bf6bAji37QQ==}
+    engines: {node: '>=12'}
+
   magic-regexp@0.10.0:
     resolution: {integrity: sha512-Uly1Bu4lO1hwHUW0CQeSWuRtzCMNO00CmXtS8N6fyvB3B979GOEEeAkiTUDsmbYLAbvpUS/Kt5c4ibosAzVyVg==}
 
@@ -3819,6 +3832,9 @@ packages:
 
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
+
+  nuxt-cron@1.8.0:
+    resolution: {integrity: sha512-XgNdounfdXNHOVlYTFDhc28yerwBP7+MP4Tk8GmC6GkxWo3nCWZ/pmqpan+tCmVVhUn6ltpe5KSCChWgl5P3kg==}
 
   nuxt@4.2.1:
     resolution: {integrity: sha512-OE5ONizgwkKhjTGlUYB3ksE+2q2/I30QIYFl3N1yYz1r2rwhunGA3puUvqkzXwgLQ3AdsNcigPDmyQsqjbSdoQ==}
@@ -7004,6 +7020,8 @@ snapshots:
     dependencies:
       '@types/geojson': 7946.0.16
 
+  '@types/luxon@3.4.2': {}
+
   '@types/mapbox__point-geometry@0.1.4': {}
 
   '@types/mapbox__vector-tile@1.3.4':
@@ -7846,6 +7864,11 @@ snapshots:
     dependencies:
       crc-32: 1.2.2
       readable-stream: 4.7.0
+
+  cron@3.5.0:
+    dependencies:
+      '@types/luxon': 3.4.2
+      luxon: 3.5.0
 
   croner@9.1.0: {}
 
@@ -9121,6 +9144,8 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
+  luxon@3.5.0: {}
+
   magic-regexp@0.10.0:
     dependencies:
       estree-walker: 3.0.3
@@ -9406,6 +9431,14 @@ snapshots:
   nth-check@2.1.1:
     dependencies:
       boolbase: 1.0.0
+
+  nuxt-cron@1.8.0(magicast@0.5.1):
+    dependencies:
+      '@nuxt/kit': 3.19.3(magicast@0.5.1)
+      cron: 3.5.0
+      fast-glob: 3.3.3
+    transitivePeerDependencies:
+      - magicast
 
   nuxt@4.2.1(@parcel/watcher@2.5.1)(@types/node@24.10.2)(@vue/compiler-sfc@3.5.23)(db0@0.3.4)(eslint@9.39.1(jiti@2.6.1))(ioredis@5.8.2)(lightningcss@1.30.2)(magicast@0.5.1)(optionator@0.9.4)(rollup@4.52.5)(terser@5.44.0)(typescript@5.9.3)(vite@7.2.1(@types/node@24.10.2)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1))(vue-tsc@3.1.5(typescript@5.9.3))(yaml@2.8.1):
     dependencies:

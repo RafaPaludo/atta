@@ -7,7 +7,7 @@
     to="/"
   >
     <UIcon
-      name="i-lucide-lightbulb"
+      name="i-lucide-orbit"
       class="size-6 text-center"
     />
   </UButton>
