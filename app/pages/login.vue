@@ -6,6 +6,7 @@
         :fields="fields"
         title="Olá novamente!"
         icon="i-lucide-lock"
+        :submit="{ label: 'Acessar' }"
         @submit="onSubmit"
       >
         <template #description>
