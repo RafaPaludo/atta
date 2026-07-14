@@ -111,8 +111,8 @@
 
         <!-- Botão de salvar/avançar -->
         <div class="flex justify-center mt-10">
-          <UButton type="submit" block size="xl">
-            Continuar
+          <UButton type="submit" block size="xl" icon="i-lucide-user-plus">
+            Criar conta
           </UButton>
         </div>
       </UForm>
