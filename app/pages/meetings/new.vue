@@ -96,7 +96,9 @@ function onParticipantsCompleted(data) {
   stepper.value?.next()
 }
 
-function goPrevious() { stepper.value?.prev ? stepper.value.prev() : '' }
+function goPrevious() {
+  return stepper.value?.prev ? stepper.value.prev() : ''
+}
 
 function feedbackCreatedMeeting() {
   toast.add({

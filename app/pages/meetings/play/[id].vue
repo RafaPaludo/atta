@@ -21,15 +21,15 @@
             {{ meeting.date }} •
             {{ meeting.start_time }} / {{ meeting.end_time }} •
             <span v-if="meeting.meeting_type === 'presencial'">{{ meeting.location }}</span>
-          </p><div v-else class="inline-block">
+
             <UButton
+              v-else
               :to="meeting.meeting_url"
               variant="link"
               target="_blank"
             >
               {{ meeting.meeting_url }}
             </UButton>
-          </div>
           </p>
         </div>
 
@@ -333,7 +333,7 @@ async function generateMeetingPDF() {
         }
       }]
     })
-  } catch (error) {
+  } catch {
     toast.add({
       title: 'Ops, algo deu errado.',
       description: `PDF não pode ser gerado.`,

@@ -34,7 +34,6 @@ definePageMeta({
 // Hooks
 const { getErrorMessage } = useErrorMessages()
 const supabase = useSupabaseClient()
-const toast = useToast()
 
 // Schema
 
