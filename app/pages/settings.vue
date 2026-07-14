@@ -5,10 +5,6 @@ const links = [[{
   to: '/settings',
   exact: true
 }, {
-  label: 'Notificações',
-  icon: 'i-lucide-bell',
-  to: '/settings/notifications'
-}, {
   label: 'Segurança',
   icon: 'i-lucide-shield',
   to: '/settings/security'

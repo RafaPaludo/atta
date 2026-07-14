@@ -3,7 +3,8 @@ import { AuthError } from '@supabase/supabase-js'
 // Lista de erros customizados de autenticação (exemplo)
 const supabaseErrorAuthList = [
   { code: 'invalid_credentials', translate: 'Usuário ou senha incorretos.' },
-  { code: 'email_not_confirmed', translate: 'Confirme seu e-mail antes de continuar.' }
+  { code: 'email_not_confirmed', translate: 'Confirme seu e-mail antes de continuar.' },
+  { code: 'same_password', translate: 'Nova senha precisa ser diferente da anterior.' }
 ]
 
 // Lista de erros comuns de banco (exemplo)
