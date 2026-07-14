@@ -11,14 +11,6 @@ const links = [[{
     open.value = false
   }
 }, {
-  label: 'Caixa de entrada',
-  icon: 'i-lucide-inbox',
-  to: '/inbox',
-  badge: '4',
-  onSelect: () => {
-    open.value = false
-  }
-}, {
   label: 'Contatos',
   icon: 'i-lucide-users',
   to: '/contacts',
@@ -35,12 +27,6 @@ const links = [[{
     label: 'Geral',
     to: '/settings',
     exact: true,
-    onSelect: () => {
-      open.value = false
-    }
-  }, {
-    label: 'Notificações',
-    to: '/settings/notifications',
     onSelect: () => {
       open.value = false
     }
@@ -111,7 +97,5 @@ const links = [[{
     </UDashboardSidebar>
 
     <slot />
-
-    <NotificationsSlideover />
   </UDashboardGroup>
 </template>

@@ -29,3 +29,11 @@ export const newPasswordSchema = z.object({
   message: 'As senhas não conferem',
   path: ['confirmPassword']
 })
+
+export const updatePasswordSchema = z.object({
+  currentPassword: passwordField(),
+  newPassword: passwordField(),
+}).refine(data => data.currentPassword !== data.newPassword, {
+  message: 'As senhas precisam ser diferentes',
+  path: ['newPassword']
+})
