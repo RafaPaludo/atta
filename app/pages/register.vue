@@ -133,6 +133,7 @@
             block
             size="xl"
             icon="i-lucide-user-plus"
+            :loading="loading"
           >
             Criar conta
           </UButton>
@@ -155,9 +156,9 @@ const supabaseClient = useSupabaseClient()
 const toast = useToast()
 
 // Data
-const alert = ref('')
 const showPassword = ref(false)
 const showConfirmPassword = ref(false)
+const loading = ref(false)
 const formData = reactive({
   name: '',
   email: '',
@@ -168,7 +169,7 @@ const formData = reactive({
 
 // Functions
 async function onSignUpNewUser({ data }) {
-  alert.value = ''
+  loading.value = true
 
   try {
     const { data: authData, error } = await supabaseClient.auth.signUp({
@@ -195,9 +196,19 @@ async function onSignUpNewUser({ data }) {
       color: 'success'
     })
 
-    Object.assign(data, formData)
+    formData.name = ''
+    formData.email = ''
+    formData.phone = ''
+    formData.password = ''
+    formData.confirmPassword = ''
   } catch (error) {
-    alert.value = getErrorMessage(error)
+    toast.add({
+      title: 'Erro ao cadastrar',
+      description: getErrorMessage(error),
+      color: 'error'
+    })
+  } finally {
+    loading.value = false
   }
 }
 </script>
