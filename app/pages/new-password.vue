@@ -53,6 +53,7 @@ const fields = [{
 
 const alert = ref('')
 const loading = ref(false)
+const resetPasswordToken = computed(() => route.query.token || route.hash?.replace('#', '')?.split('&')?.[0]?.split('=')?.[1])
 
 // Functions
 async function onResetPassword(payload) {
@@ -60,9 +61,7 @@ async function onResetPassword(payload) {
   loading.value = true
 
   try {
-    const token = route.query.token || route.hash?.replace('#', '')?.split('&')?.[0]?.split('=')?.[1]
-
-    if (!token) {
+    if (!resetPasswordToken.value) {
       throw new Error('Token de recuperação inválido ou expirado. Solicite um novo link.')
     }
 
@@ -98,8 +97,7 @@ async function onResetPassword(payload) {
 
 // Verifica se o token existe na URL ao carregar a página
 onMounted(() => {
-  const token = route.query.token || route.hash?.replace('#', '')?.split('&')?.[0]?.split('=')?.[1]
-  if (!token) {
+  if (!resetPasswordToken.value) {
     alert.value = 'Link de recuperação inválido. Solicite um novo reset de senha.'
   }
 })

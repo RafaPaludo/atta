@@ -106,11 +106,6 @@ async function onForgotPassword(payload) {
   } catch (error) {
     console.error('Erro ao enviar e-mail de recuperação:', error)
     alert.value = getErrorMessage(error)
-
-    // Se for um erro específico de usuário não encontrado, oferece uma dica
-    if (error.message?.includes('User not found') || error.code === 'user_not_found') {
-      alert.value = 'Não encontramos uma conta com este e-mail. Verifique se o endereço está correto.'
-    }
   } finally {
     loading.value = false
   }
