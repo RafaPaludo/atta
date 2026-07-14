@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-const { emailField, passwordField, requiredString } = useValidationSchema()
+const { emailField, passwordField } = useValidationSchema()
 
 export const loginSchema = z.object({
   email: emailField(),
