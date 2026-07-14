@@ -73,7 +73,7 @@ const redirectUrl = computed(() => {
 })
 
 // Functions
-async function onForgotPassword(payload) {
+async function onForgotPassword({ data }) {
   alert.value = ''
   successMessage.value = ''
   loading.value = true
@@ -88,7 +88,7 @@ async function onForgotPassword(payload) {
 
   try {
     // 1. Envia o e-mail de recuperação
-    const { error } = await supabase.auth.resetPasswordForEmail(payload.email, {
+    const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
       redirectTo: redirectUrl.value
     })
 
