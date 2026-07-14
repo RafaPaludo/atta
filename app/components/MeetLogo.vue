@@ -11,6 +11,4 @@
       class="size-6 text-center"
     />
   </UButton>
-
-  
 </template>

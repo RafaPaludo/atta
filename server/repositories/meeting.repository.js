@@ -34,7 +34,7 @@ export async function findMeetingByTimeRange({ startUTC, endUTC, userId }, supab
     .gte('start_time', startUTC)
     .lte('start_time', endUTC)
     .order('start_time', { ascending: true })
-    .eq('created_by', userId) // 🔒 só contatos do usuário logado    
+    .eq('created_by', userId) // 🔒 só contatos do usuário logado
 
   if (error) throw error
 
@@ -48,7 +48,7 @@ export async function updateMeetingById({ payload, meetingId, userId }, supabase
     .eq('id', meetingId)
     .eq('created_by', userId) // 🔒 só reuniões do usuário logado
     .select()
-    .single() 
+    .single()
 
   if (error) throw error
 

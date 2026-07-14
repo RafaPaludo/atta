@@ -1,7 +1,7 @@
 import {
   insertAgendaPointsService,
   updateAgendaPointsService,
-  deleteAgendaPointsService,
+  deleteAgendaPointsService
 } from '../services/agenda-points/service.js'
 
 export async function insertAgendaPointsController({ payload, userId, supabase }) {
@@ -9,7 +9,7 @@ export async function insertAgendaPointsController({ payload, userId, supabase }
     return await insertAgendaPointsService({
       payload,
       userId,
-      supabase,
+      supabase
     })
   } catch (error) {
     if (error.message === 'AGENDA_NOT_FOUND') {
@@ -34,33 +34,33 @@ export async function updateAgendaPointController({ agendaPointId, payload, user
       agendaPointId,
       payload,
       userId,
-      supabase,
+      supabase
     })
   } catch (error) {
     if (error.message === 'AGENDA_POINT_NOT_FOUND') {
       throw createError({
         statusCode: 404,
-        statusMessage: 'Encaminhamento não encontrado.',
+        statusMessage: 'Encaminhamento não encontrado.'
       })
     }
 
     if (error.message === 'FORBIDDEN') {
       throw createError({
         statusCode: 403,
-        statusMessage: 'Sem permissão para alterar este encaminhamento.',
+        statusMessage: 'Sem permissão para alterar este encaminhamento.'
       })
     }
 
     if (error.message === 'NO_VALID_FIELDS') {
       throw createError({
         statusCode: 400,
-        statusMessage: 'Nenhum campo válido enviado.',
+        statusMessage: 'Nenhum campo válido enviado.'
       })
     }
 
     throw createError({
       statusCode: 400,
-      statusMessage: error.message,
+      statusMessage: error.message
     })
   }
 }
@@ -70,7 +70,7 @@ export async function deleteAgendaPointByIdController({ agendaPointId, userId, s
     return await deleteAgendaPointsService({
       agendaPointId,
       userId,
-      supabase,
+      supabase
     })
   } catch (error) {
     if (error.message === 'AGENDA_NOT_FOUND') {

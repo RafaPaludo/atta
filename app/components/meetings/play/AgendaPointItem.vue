@@ -8,7 +8,7 @@
         <UCheckbox
           :disabled="disabledActions"
           :model-value="isResolved"
-          @update:modelValue="toggleAgendaPointStatus"
+          @update:model-value="toggleAgendaPointStatus"
         />
 
         <span
@@ -78,16 +78,16 @@ const toast = useToast()
 const props = defineProps({
   agendaPoint: {
     type: Object,
-    required: true,
+    required: true
   },
   participants: {
     type: Array,
-    default: () => [],
+    default: () => []
   },
   disabled: {
     type: Boolean,
     default: true
-  },
+  }
 })
 
 // ================================
@@ -124,7 +124,7 @@ const participantAssignedToAgendaPoint = computed(() => {
 // Mapeia transição de status
 const statusTransition = Object.freeze({
   pending: 'resolved',
-  resolved: 'pending',
+  resolved: 'pending'
 })
 
 // ================================
@@ -141,15 +141,15 @@ watch(
 // ================================
 // API Actions
 // ================================
-async function updateAgendaPointStatus () {
+async function updateAgendaPointStatus() {
   waitingChangeResolve.value = true
 
   try {
     await $fetch(`/api/agenda-points/${currentAgendaPoint.value.id}`, {
       method: 'PATCH',
       body: {
-        status: currentAgendaPoint.value.status,
-      },
+        status: currentAgendaPoint.value.status
+      }
     })
   } catch (error) {
     console.error(error)
@@ -157,7 +157,7 @@ async function updateAgendaPointStatus () {
     toast.add({
       title: 'Erro ao salvar',
       description: 'Não foi possível atualizar o status do encaminhamento.',
-      color: 'error',
+      color: 'error'
     })
 
     throw error
@@ -166,19 +166,19 @@ async function updateAgendaPointStatus () {
   }
 }
 
-async function deleteAgendaPoint () {
+async function deleteAgendaPoint() {
   if (waitingChangeResolve.value) return
 
   waitingChangeResolve.value = true
 
   try {
     await $fetch(`/api/agenda-points/${currentAgendaPoint.value.id}`, {
-      method: 'DELETE',
+      method: 'DELETE'
     })
 
     toast.add({
       title: 'Encaminhamento deletado',
-      description: 'O encaminhamento foi removido com sucesso.',
+      description: 'O encaminhamento foi removido com sucesso.'
     })
 
     isDeleted.value = true
@@ -188,7 +188,7 @@ async function deleteAgendaPoint () {
     toast.add({
       title: 'Erro ao deletar',
       description: 'Não foi possível deletar o encaminhamento.',
-      color: 'error',
+      color: 'error'
     })
   } finally {
     waitingChangeResolve.value = false
@@ -199,7 +199,7 @@ async function deleteAgendaPoint () {
 // UI Handlers
 // ================================
 // Alterna status (pending <-> resolved) com fallback em erro
-async function toggleAgendaPointStatus () {
+async function toggleAgendaPointStatus() {
   if (waitingChangeResolve.value) return
 
   const previousStatus = currentAgendaPoint.value.status

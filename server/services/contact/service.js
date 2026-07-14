@@ -1,9 +1,9 @@
-import { 
+import {
   insertContact,
   getAllContactsByUser,
   updateContactByUser,
   getContactByUser,
-  deleteContact,
+  deleteContact
 } from '../../repositories/contact.repository'
 
 export async function insertContactService({ payload, userId, supabase }) {

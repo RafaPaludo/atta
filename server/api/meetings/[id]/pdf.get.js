@@ -14,6 +14,6 @@ export default defineEventHandler(async (event) => {
   return getPDFMeetingController({
     userId: user.sub,
     meetingId,
-    supabase,
+    supabase
   })
-});
+})

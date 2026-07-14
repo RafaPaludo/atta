@@ -1,5 +1,5 @@
 <script setup>
-import { AuthError } from '@supabase/supabase-js';
+import { AuthError } from '@supabase/supabase-js'
 
 defineProps({
   collapsed: Boolean
@@ -9,32 +9,32 @@ const colorMode = useColorMode()
 const appConfig = useAppConfig()
 const { userProfile } = useUserProfile()
 
-const router = useRouter();
-const user = useSupabaseUser();
-const supabaseClient = useSupabaseClient();
+const router = useRouter()
+const user = useSupabaseUser()
+const supabaseClient = useSupabaseClient()
 
 const colors = ['red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose']
 const neutrals = ['slate', 'gray', 'zinc', 'neutral', 'stone']
 
-const userLoggedName = computed(() => userProfile.value?.name || "")
+const userLoggedName = computed(() => userProfile.value?.name || '')
 
 const logout = async () => {
   try {
-    const { error } = await supabaseClient.auth.signOut();
-    if (error) throw error;
-    router.push('/login');
+    const { error } = await supabaseClient.auth.signOut()
+    if (error) throw error
+    router.push('/login')
   } catch (error) {
     if (error instanceof AuthError) {
       console.warn(error)
     } else if (error instanceof TypeError) {
-      console.warn("Aconteceu algum erro!");
+      console.warn('Aconteceu algum erro!')
     }
   }
 }
 
 const items = computed(() => ([[{
   type: 'label',
-  label: userLoggedName.value,
+  label: userLoggedName.value
 }], [{
   label: 'Pagamento',
   icon: 'i-lucide-credit-card'
@@ -133,7 +133,7 @@ const items = computed(() => ([[{
   icon: 'i-lucide-log-out',
   onSelect: async (e) => {
     e.preventDefault()
-    await logout();
+    await logout()
   }
 }]]))
 </script>

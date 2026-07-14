@@ -12,7 +12,7 @@ export const registerSchema = z.object({
   email: emailField(),
   phone: z.string().regex(/^\d{11}$/, 'O telefone deve ter 11 dígitos'),
   password: passwordField(),
-  confirmPassword: passwordField(),
+  confirmPassword: passwordField()
 }).refine(data => data.password === data.confirmPassword, {
   message: 'As senhas não conferem',
   path: ['confirmPassword']
@@ -24,7 +24,7 @@ export const resetPasswordSchema = z.object({
 
 export const newPasswordSchema = z.object({
   password: passwordField(),
-  confirmPassword: passwordField(),
+  confirmPassword: passwordField()
 }).refine(data => data.password === data.confirmPassword, {
   message: 'As senhas não conferem',
   path: ['confirmPassword']
@@ -32,7 +32,7 @@ export const newPasswordSchema = z.object({
 
 export const updatePasswordSchema = z.object({
   currentPassword: passwordField(),
-  newPassword: passwordField(),
+  newPassword: passwordField()
 }).refine(data => data.currentPassword !== data.newPassword, {
   message: 'As senhas precisam ser diferentes',
   path: ['newPassword']

@@ -1,5 +1,5 @@
 <template>
-  <UForm :state="meetingState" @submit="onSubmitBasicInfo" class="space-y-4">
+  <UForm :state="meetingState" class="space-y-4" @submit="onSubmitBasicInfo">
     <!-- Título -->
     <UFormField
       name="title"
@@ -19,14 +19,19 @@
       required
       class="flex max-sm:flex-col justify-between items-center gap-4"
       :ui="{ container: 'flex-1', label: 'min-w-30' }"
-    > 
+    >
       <template #hint>
         <UTooltip text="Necessário marcar com ao menos 5 dias de antecedência" :ui="{ content: '' }">
           <UIcon name="i-lucide-badge-alert" class="size-5" />
         </UTooltip>
       </template>
       <UPopover>
-        <UButton color="primary" variant="subtle" icon="i-lucide-calendar" class="w-full">
+        <UButton
+          color="primary"
+          variant="subtle"
+          icon="i-lucide-calendar"
+          class="w-full"
+        >
           {{ meetingState.date ? df.format(meetingState.date.toDate(getLocalTimeZone())) : 'Selecione uma data' }}
         </UButton>
 
@@ -50,7 +55,12 @@
       class="flex max-sm:flex-col justify-between items-center gap-4"
       :ui="{ container: 'flex-1', label: 'min-w-35' }"
     >
-      <UInput v-model="meetingState.start_time" type="time" autocomplete="off" class="w-full" />
+      <UInput
+        v-model="meetingState.start_time"
+        type="time"
+        autocomplete="off"
+        class="w-full"
+      />
     </UFormField>
     <USeparator />
 
@@ -62,7 +72,12 @@
       class="flex max-sm:flex-col justify-between items-center gap-4"
       :ui="{ container: 'flex-1', label: 'min-w-35' }"
     >
-      <UInput v-model="meetingState.end_time" type="time" autocomplete="off" class="w-full" />
+      <UInput
+        v-model="meetingState.end_time"
+        type="time"
+        autocomplete="off"
+        class="w-full"
+      />
     </UFormField>
     <USeparator />
 
@@ -84,7 +99,7 @@
         :items="localTypes"
       />
     </UFormField>
-    
+
     <!-- Local -->
     <UFormField
       v-if="meetingState.meeting_type === 'presencial'"
@@ -176,7 +191,7 @@ const isValidLocal = computed(() => {
 
     case 'online':
       return Boolean(meetingState.meeting_url)
-  
+
     default:
       return false
   }
@@ -195,9 +210,9 @@ const meetingState = reactive({
 })
 
 // Bloqueia de datas < hoje + 5 dias
-function isDateUnavailable (date) {
+function isDateUnavailable(date) {
   const currentDate = today(getLocalTimeZone())
-  const minDate = currentDate.add({ days: 5})
+  const minDate = currentDate.add({ days: 5 })
 
   // Bloqueia se a data for menor que "hoje + 5 dias"
   return date.compare(minDate) < 0
@@ -224,13 +239,13 @@ function resetLocalTypeSelection() {
 
 function onSubmitBasicInfo() {
   if (
-    !meetingState.title ||
-    !meetingState.date ||
-    !meetingState.start_time ||
-    !meetingState.end_time ||
-    meetingState.agendas.length === 0 ||
-    meetingState.agendas.some(a => !a.title.trim()) ||
-    !isValidLocal.value
+    !meetingState.title
+    || !meetingState.date
+    || !meetingState.start_time
+    || !meetingState.end_time
+    || meetingState.agendas.length === 0
+    || meetingState.agendas.some(a => !a.title.trim())
+    || !isValidLocal.value
   ) {
     toast.add({
       title: 'Ops!',

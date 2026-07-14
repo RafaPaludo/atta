@@ -16,7 +16,7 @@ const props = defineProps({
   modelValue: String | undefined, // pai recebe só dígitos
   name: String,
   label: String,
-  required: Boolean,
+  required: Boolean
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -66,8 +66,8 @@ function onKeydown(event) {
   ]
 
   if (
-    allowedKeys.includes(event.key) ||
-    (event.ctrlKey || event.metaKey) // copiar, colar, etc
+    allowedKeys.includes(event.key)
+    || (event.ctrlKey || event.metaKey) // copiar, colar, etc
   ) {
     return
   }

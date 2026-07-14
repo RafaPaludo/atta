@@ -9,12 +9,14 @@ export default defineCronHandler('everyMinute', async () => {
   const startTime = new Date().toISOString()
   console.log(`🔔 [CRON] Execução iniciada às ${startTime}`)
 
+  return
+
   try {
     // 1️⃣ Busca lembretes pendentes
     const reminders = await getPendingReminders()
 
     if (!reminders?.length) {
-      console.log("ℹ️ Nenhum lembrete pendente no momento.")
+      console.log('ℹ️ Nenhum lembrete pendente no momento.')
       return
     }
 

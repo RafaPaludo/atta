@@ -24,11 +24,11 @@
 
         <div class="flex flex-wrap items-center gap-1.5">
           <ContactsDeleteModal
-            v-model:openModal="openContactDeleteModal"
+            v-model:open-modal="openContactDeleteModal"
             :contact="contactDelete"
           />
           <ContactsEditModal
-            v-model:openModal="openContactEditModal"
+            v-model:open-modal="openContactEditModal"
             :contact="contactEdit"
           />
         </div>

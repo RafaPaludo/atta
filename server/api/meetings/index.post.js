@@ -20,6 +20,6 @@ export default defineEventHandler(async (event) => {
   return createMeetingWithSetupController({
     payload: body,
     userId: user.sub,
-    supabase,
+    supabase
   })
 })

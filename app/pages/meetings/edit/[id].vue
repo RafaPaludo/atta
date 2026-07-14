@@ -35,8 +35,23 @@
         </UPageCard>
 
         <div class="flex gap-4">
-          <UButton to="/" size="xl" block class="mt-4" variant="soft">Cancelar</UButton>
-          <UButton @click="saveEditMeeting" size="xl" block class="mt-4">Salvar</UButton>
+          <UButton
+            to="/"
+            size="xl"
+            block
+            class="mt-4"
+            variant="soft"
+          >
+            Cancelar
+          </UButton>
+          <UButton
+            size="xl"
+            block
+            class="mt-4"
+            @click="saveEditMeeting"
+          >
+            Salvar
+          </UButton>
         </div>
       </div>
     </template>
@@ -58,12 +73,12 @@ const meeting = ref({
   meeting_url: '',
   meeting_type: '',
   attachment_url: '',
-  agendas: [],
+  agendas: []
 })
 
 async function getMeetingWithParticipantAndAgenda() {
   loading.value = true
-  
+
   try {
     const data = await $fetch(`/api/meetings/${route.params.id}`, {
       params: { include: 'participants,agendas' }
@@ -87,7 +102,7 @@ async function getMeetingWithParticipantAndAgenda() {
   }
 }
 
-async function saveEditMeeting () {
+async function saveEditMeeting() {
   try {
     loading.value = true
 
@@ -120,7 +135,7 @@ async function saveEditMeeting () {
   }
 }
 
-function feedbackCreatedMeeting () {
+function feedbackCreatedMeeting() {
   toast.add({
     title: 'Reunião alterada com sucesso!',
     color: 'success',

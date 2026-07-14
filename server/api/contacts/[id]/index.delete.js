@@ -14,6 +14,6 @@ export default defineEventHandler(async (event) => {
   return deleteContactController({
     contactId,
     userId: user.sub,
-    supabase,
+    supabase
   })
 })

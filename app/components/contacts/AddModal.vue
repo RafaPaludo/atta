@@ -44,7 +44,7 @@ import * as z from 'zod'
 const schema = z.object({
   name: z.string().min(2, 'Poucos caracteres'),
   email: z.string().email('E-mail inválido'),
-  phone: z.string().regex(/^\d{11}$/, 'O telefone deve ter 11 dígitos'),
+  phone: z.string().regex(/^\d{11}$/, 'O telefone deve ter 11 dígitos')
 })
 const open = ref(false)
 const loading = ref(false)
@@ -73,7 +73,7 @@ async function onSubmit(event) {
     if (error) throw error
 
     toast.add({ title: 'Sucesso', description: `Novo contato ${event.data.name} cadastrado`, color: 'success' })
-    
+
     state.name = ''
     state.email = ''
     state.phone = ''

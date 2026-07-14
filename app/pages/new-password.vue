@@ -9,7 +9,12 @@
         @submit="onSignUpNewUser"
       >
         <template #validation>
-          <UAlert v-if="alert" color="error" icon="i-lucide-info" :title="alert" />
+          <UAlert
+            v-if="alert"
+            color="error"
+            icon="i-lucide-info"
+            :title="alert"
+          />
         </template>
       </UAuthForm>
     </UPageCard>
@@ -34,20 +39,20 @@ const fields = [{
   label: 'Senha',
   type: 'password',
   placeholder: 'Digite sua senha',
-  required: true,
+  required: true
 },
 {
   name: 'confirmPassword',
   label: 'Confirmação da senha',
   type: 'password',
   placeholder: 'Digite sua senha novamente',
-  required: true,
+  required: true
 }]
-const alert = ref("")
+const alert = ref('')
 
 // Functions
 async function onSignUpNewUser(payload) {
-  alert.value = ""
+  alert.value = ''
 
   try {
     return

@@ -100,7 +100,6 @@
         label="Bio"
         description="Breve descrição do perfil. Links e informações relevantes"
         class="flex max-sm:flex-col justify-between items-start gap-4"
-
       >
         <UTextarea
           v-model="profile.bio"
@@ -123,7 +122,7 @@ const supabaseClient = useSupabaseClient()
 const { getErrorMessage } = useErrorMessages()
 
 // Data
-const alert = ref("")
+const alert = ref('')
 const fileRef = ref()
 const profile = reactive({
   name: userProfile.value?.name || '',
@@ -147,7 +146,7 @@ async function onSubmit(event) {
         name: event.data.name,
         phone: formatPhoneNumber(event.data.phone),
         avatar: event.data.avatar,
-        bio: event.data.bio,
+        bio: event.data.bio
       })
       .eq('id', userProfile.value?.id)
 

@@ -51,7 +51,7 @@ const password = reactive({
 async function onSignUpNewUser({ data }) {
   // 1. Verifica se a senha atual está correta
   const isPasswordCorrect = await checkCurrentPassword(data.currentPassword)
-  
+
   if (!isPasswordCorrect) {
     return
   }
@@ -93,7 +93,7 @@ async function checkCurrentPassword(currentPassword) {
     })
     return false
   }
-  
+
   const { error: signInError } = await supabaseClient.auth.signInWithPassword({
     email: user.value.email,
     password: currentPassword
@@ -102,19 +102,19 @@ async function checkCurrentPassword(currentPassword) {
   if (signInError) {
     // Mapeia o erro específico do Supabase
     let errorMessage = 'Senha atual incorreta'
-    
+
     if (signInError.message?.includes('Invalid login credentials')) {
       errorMessage = 'Senha atual incorreta. Verifique e tente novamente.'
     } else if (signInError.message?.includes('Email not confirmed')) {
       errorMessage = 'Seu e-mail ainda não foi confirmado.'
     }
-    
+
     toast.add({
       title: 'Erro ao atualizar a senha',
       description: errorMessage,
       color: 'error'
     })
-    
+
     return false
   }
 

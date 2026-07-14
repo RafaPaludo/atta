@@ -16,7 +16,12 @@
           <ULink to="/reset-password" class="text-primary font-medium" tabindex="-1">Esqueceu a senha?</ULink>
         </template>
         <template #validation>
-          <UAlert v-if="alert" color="error" icon="i-lucide-info" :title="alert" />
+          <UAlert
+            v-if="alert"
+            color="error"
+            icon="i-lucide-info"
+            :title="alert"
+          />
         </template>
       </UAuthForm>
     </UPageCard>
@@ -40,27 +45,27 @@ const fields = [{
   type: 'text',
   label: 'E-mail',
   placeholder: 'Digite seu e-mail',
-  required: true,
+  required: true
 }, {
   name: 'password',
   label: 'Senha',
   type: 'password',
   placeholder: 'Digite sua senha',
-  required: true,
+  required: true
 }]
-const alert = ref("")
+const alert = ref('')
 
 async function onSubmit(payload) {
-  alert.value = ""
+  alert.value = ''
 
   try {
     const { error } = await supabaseClient.auth.signInWithPassword({
       email: payload.data.email,
-      password: payload.data.password,
+      password: payload.data.password
     })
 
     if (error) throw error
-  
+
     navigateTo('/')
   } catch (error) {
     alert.value = getErrorMessage(error)

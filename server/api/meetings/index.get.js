@@ -3,7 +3,7 @@ import { getMeetingAtTimeController } from '../../controllers/meeting.controller
 
 export default defineEventHandler(async (event) => {
   const user = await serverSupabaseUser(event)
-  
+
   if (!user) {
     throw createError({ statusCode: 401, statusMessage: 'Não autenticado' })
   }
@@ -17,13 +17,13 @@ export default defineEventHandler(async (event) => {
       statusMessage: 'startUTC e endUTC são obrigatórios'
     })
   }
-  
+
   const supabase = await serverSupabaseClient(event)
 
   return getMeetingAtTimeController({
     userId: user.sub,
     startUTC,
     endUTC,
-    supabase,
+    supabase
   })
 })

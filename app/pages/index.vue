@@ -18,7 +18,7 @@
       v-model="selectedDate"
       size="lg"
       locale="pt-BR"
-      weekdayFormat="short"
+      weekday-format="short"
       class="p-6"
       :year-controls="false"
       @update:placeholder="handleMonthChange"
@@ -35,7 +35,9 @@
       </template>
     </UCalendar>
 
-    <div v-if="loading">Carregando ...</div>
+    <div v-if="loading">
+      Carregando ...
+    </div>
   </UDashboardPanel>
 
   <!-- Lista desktop -->
@@ -53,7 +55,7 @@
   <ClientOnly>
     <USlideover v-if="isMobile" v-model:open="isSidebarMobileOpen">
       <template #content>
-        <UButton @click="isSidebarMobileOpen = false" class="m-4">
+        <UButton class="m-4" @click="isSidebarMobileOpen = false">
           <UIcon
             name="i-lucide-arrow-left"
             class="size-6 text-center"
@@ -135,8 +137,8 @@ function handleMonthChange(newDate) {
  */
 async function fetchMeetings(year, month) {
   loading.value = true
-  
-  const thisMonth = new CalendarDate(year, month, 1);
+
+  const thisMonth = new CalendarDate(year, month, 1)
   const start = startOfMonth(thisMonth)
   const end = endOfMonth(thisMonth).add({ months: 2 })
   const tz = 'America/Sao_Paulo'
@@ -146,7 +148,7 @@ async function fetchMeetings(year, month) {
 
   try {
     const data = await $fetch('/api/meetings', {
-      method: "GET",
+      method: 'GET',
       params: {
         startUTC,
         endUTC

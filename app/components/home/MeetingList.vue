@@ -10,14 +10,14 @@
         <div>
           Reunião:<strong class="ml-1">{{ meeting.title }}</strong>
         </div>
-  
+
         <div>
           Hora:
           <span class="ml-1">
             {{ timeFormatter.format(new Date(meeting.start_time)) }}
           </span>
         </div>
-  
+
         <div>
           Local:
           <span>{{ meeting.location }}</span>

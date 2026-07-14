@@ -1,4 +1,4 @@
-/* 
+/*
   Faz a autenticação com o supabase, para poder executar queries no banco,
   pois não temos acesso ao composable:
   import { serverSupabaseClient, serverSupabaseUser } from '#supabase/server'

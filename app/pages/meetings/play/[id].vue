@@ -10,29 +10,33 @@
 
     <template #body>
       <div class="w-full max-w-screen-2xl mx-auto">
-        <USkeleton class="h-12 w-full" v-if="pageLoading" />
+        <USkeleton v-if="pageLoading" class="h-12 w-full" />
 
         <!-- Resumo da reunião -->
-        <div class="mb-4" v-else>
-          <h3 class="text-lg font-bold">{{ meeting.title }}</h3>
-          <p class="my-2" >
+        <div v-else class="mb-4">
+          <h3 class="text-lg font-bold">
+            {{ meeting.title }}
+          </h3>
+          <p class="my-2">
             {{ meeting.date }} •
             {{ meeting.start_time }} / {{ meeting.end_time }} •
             <span v-if="meeting.meeting_type === 'presencial'">{{ meeting.location }}</span>
-            <div v-else class="inline-block">
-              <UButton
-                :to="meeting.meeting_url"
-                variant="link"
-                target="_blank"
-              >{{ meeting.meeting_url }}</UButton>
-            </div>
+          </p><div v-else class="inline-block">
+            <UButton
+              :to="meeting.meeting_url"
+              variant="link"
+              target="_blank"
+            >
+              {{ meeting.meeting_url }}
+            </UButton>
+          </div>
           </p>
         </div>
-        
-        <!-- Agendas, encaminhamentos e Ações-->
+
+        <!-- Agendas, encaminhamentos e Ações -->
         <div class="mx-auto grid gap-6 lg:grid-cols-3">
-          <USkeleton class="h-[60vh] w-full my-8 col-span-2" v-if="pageLoading" />
-          <section class="col-span-2" v-else>
+          <USkeleton v-if="pageLoading" class="h-[60vh] w-full my-8 col-span-2" />
+          <section v-else class="col-span-2">
             <!-- TODO: NO FUTURO FAZER UM FORMULÁRIO PARA EDITAR AS INFOS BÁSICAS DA REUNIÃO -->
             <!-- <UCard>
               Titulo
@@ -44,11 +48,15 @@
 
             <div class="flex items-center justify-between mb-6">
               <div>
-                <h2 class="text-lg font-semibold">Pautas</h2>
-                <p class="text-sm text-muted-foreground">{{ agendas.length }} pautas · {{ totalAgendaPoints }} encaminhamentos</p>
+                <h2 class="text-lg font-semibold">
+                  Pautas
+                </h2>
+                <p class="text-sm text-muted-foreground">
+                  {{ agendas.length }} pautas · {{ totalAgendaPoints }} encaminhamentos
+                </p>
               </div>
 
-              <UButton label="Nova Pauta" icon="i-lucide-plus"/>
+              <UButton label="Nova Pauta" icon="i-lucide-plus" />
             </div>
 
             <UAccordion type="multiple" :items="agendas">
@@ -57,7 +65,7 @@
                   <!-- Descrição da Pauta -->
                   <div>
                     <span>Descrição</span>
-  
+
                     <UTextarea
                       v-model="item.content"
                       class="w-full my-2"
@@ -65,10 +73,10 @@
                       placeholder="Use este campo para registrar os principais pontos discutidos"
                       :disabled="!canEdit"
                     />
-                    
+
                     <UButton
-                      @click="saveAgendaContent(item.content, item.id)"
                       :disabled="!canEdit"
+                      @click="saveAgendaContent(item.content, item.id)"
                     >
                       Salvar
                     </UButton>
@@ -84,14 +92,14 @@
                   <MeetingsPlayAgendaPointItem
                     v-for="agendaPoint in item.agendaPoints"
                     :key="agendaPoint.id"
-                    :agendaPoint="agendaPoint"
+                    :agenda-point="agendaPoint"
                     :participants="participants"
                     :disabled="!canEdit"
                   />
-                  
+
                   <MeetingsPlayAgendaPointAdd
                     :agenda="item"
-                    :meetingId="route.params.id"
+                    :meeting-id="route.params.id"
                     :participants="participants"
                     :disabled="!canEdit"
                     @update:agendas="(agendaPoint) => addAgendaPointIntoAgenda(agendaPoint, item)"
@@ -101,7 +109,7 @@
             </UAccordion>
           </section>
 
-          <USkeleton class="h-[60vh] w-full my-8" v-if="pageLoading" />
+          <USkeleton v-if="pageLoading" class="h-[60vh] w-full my-8" />
           <aside v-else>
             <UCard variant="subtle">
               <template #header>
@@ -125,7 +133,9 @@
                   :disabled="actionsLoading"
                   :loading="actionsLoading"
                   @click="startMeeting"
-                >Iniciar a Reunião</UButton>
+                >
+                  Iniciar a Reunião
+                </UButton>
 
                 <UButton
                   v-if="meetingInProgress"
@@ -135,7 +145,9 @@
                   :disabled="actionsLoading"
                   :loading="actionsLoading"
                   @click="finishMeeting"
-                >Finalizar Reunião</UButton>
+                >
+                  Finalizar Reunião
+                </UButton>
 
                 <UButton
                   v-if="meetingFinished"
@@ -146,7 +158,9 @@
                   :disabled="actionsLoading"
                   :loading="actionsLoading"
                   @click="startMeeting"
-                >Reabrir Reunião</UButton>
+                >
+                  Reabrir Reunião
+                </UButton>
 
                 <UButton
                   v-if="meetingFinished"
@@ -156,7 +170,9 @@
                   :disabled="actionsLoading"
                   :loading="actionsLoading"
                   @click="generateMeetingPDF"
-                >Gerar PDF</UButton>
+                >
+                  Gerar PDF
+                </UButton>
               </div>
             </UCard>
           </aside>
@@ -183,14 +199,14 @@ const meeting = ref({
   meeting_url: '',
   meeting_type: '',
   attachment_url: '',
-  meeting_status: 'scheduled',
+  meeting_status: 'scheduled'
 })
 
 const editPermission = Object.freeze({
   scheduled: false,
   in_progress: true,
   paused: true,
-  finished: false,
+  finished: false
 })
 
 const meetingInitialized = computed(() => meeting.value.meeting_status === 'scheduled')
@@ -201,7 +217,7 @@ const totalAgendaPoints = computed(() => agendas.value.reduce((acc, agenda) => a
 
 async function getMeetingWithAgenda() {
   pageLoading.value = true
-  
+
   try {
     const data = await $fetch(`/api/meetings/${route.params.id}`, {
       params: { include: 'agendas,participants' }
@@ -217,7 +233,7 @@ async function getMeetingWithAgenda() {
     meeting.value.meeting_type = data.meeting_type || ''
     meeting.value.attachment_url = data.attachment_url || ''
     meeting.value.meeting_status = data.meeting_status || 'scheduled'
-    
+
     // Popula os participantes contatos + user
     participants.value = data.meeting_participants
 
@@ -226,7 +242,7 @@ async function getMeetingWithAgenda() {
       agendas.value = data.meeting_agendas.map((agenda, idx) => {
         return {
           id: agenda.id || '',
-          label:  agenda.title || '',
+          label: agenda.title || '',
           icon: 'material-symbols:counter-' + (idx + 1) + '-outline',
           content: agenda.content || '',
           agendaPoints: agenda.agenda_points || []
@@ -241,13 +257,13 @@ async function getMeetingWithAgenda() {
   }
 }
 
-async function startMeeting () {
+async function startMeeting() {
   try {
     await $fetch(`/api/meetings/${route.params.id}/status`, {
       method: 'PATCH',
       body: { meeting_status: 'in_progress' }
     })
-    
+
     await getMeetingWithAgenda()
 
     toast.add({ title: 'Sucesso', description: `Reunião iniciada`, color: 'success' })
@@ -263,7 +279,7 @@ async function finishMeeting() {
       method: 'PATCH',
       body: { meeting_status: 'finished' }
     })
-    
+
     await getMeetingWithAgenda()
 
     toast.add({ title: 'Sucesso', description: `Reunião finalizada`, color: 'success' })
@@ -273,13 +289,13 @@ async function finishMeeting() {
   }
 }
 
-async function saveAgendaContent (content, agendaId) {
+async function saveAgendaContent(content, agendaId) {
   try {
     await $fetch(`/api/agendas/${agendaId}`, {
-      method: "PATCH",
+      method: 'PATCH',
       body: {
         content: content,
-        meeting_id: route.params.id,
+        meeting_id: route.params.id
       }
     })
 
@@ -290,14 +306,14 @@ async function saveAgendaContent (content, agendaId) {
   }
 }
 
-async function generateMeetingPDF () {
+async function generateMeetingPDF() {
   actionsLoading.value = true
 
   try {
     const pdfUrl = await $fetch(`/api/meetings/${route.params.id}/pdf`, {
       method: 'GET'
     })
-    
+
     if (pdfUrl) {
       window.open(pdfUrl, '_blank')
     }
@@ -335,7 +351,7 @@ async function generateMeetingPDF () {
   }
 }
 
-function addAgendaPointIntoAgenda (agendaPoint, item) {
+function addAgendaPointIntoAgenda(agendaPoint, item) {
   const modifiedAgenda = agendas.value.find(agenda => agenda.id === item.id)
   modifiedAgenda.agendaPoints.push(agendaPoint)
 }

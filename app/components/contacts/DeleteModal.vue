@@ -26,7 +26,6 @@
 </template>
 
 <script setup>
-
 const props = defineProps({
   contact: Object,
   openModal: Boolean

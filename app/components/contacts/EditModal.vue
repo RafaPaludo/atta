@@ -43,7 +43,7 @@ import * as z from 'zod'
 const schema = z.object({
   name: z.string().min(2, 'Poucos caracteres'),
   email: z.string().email('E-mail inválido'),
-  phone: z.string().regex(/^\d{11}$/, 'O telefone deve ter 11 dígitos'),
+  phone: z.string().regex(/^\d{11}$/, 'O telefone deve ter 11 dígitos')
 })
 
 const props = defineProps({

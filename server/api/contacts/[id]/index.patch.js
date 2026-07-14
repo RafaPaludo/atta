@@ -6,7 +6,7 @@ import { updateContactByUserController } from '../../../controllers/contact.cont
 */
 export default defineEventHandler(async (event) => {
   const user = await serverSupabaseUser(event)
-  
+
   if (!user) {
     throw createError({ statusCode: 401, statusMessage: 'Não autenticado' })
   }
@@ -19,6 +19,6 @@ export default defineEventHandler(async (event) => {
     payload: body,
     supabase,
     userId: user.sub,
-    contactId,
+    contactId
   })
 })

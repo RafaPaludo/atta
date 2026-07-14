@@ -11,7 +11,7 @@
       <USelectMenu
         v-model="selectedParticipants"
         :items="contacts"
-        :searchInput="{ placeholder: 'Procurar...', variant: 'none' }"
+        :search-input="{ placeholder: 'Procurar...', variant: 'none' }"
         :value-attribute="null"
         icon="i-lucide-search"
         multiple
@@ -38,7 +38,9 @@
         >
           <div class="flex gap-3">
             <div>{{ p.name }}</div>
-            <div class="text-muted">{{ unFormatPhoneNumber(p.phone) }}</div>
+            <div class="text-muted">
+              {{ unFormatPhoneNumber(p.phone) }}
+            </div>
           </div>
           <UButton
             v-if="p.type !== 'user'"
@@ -64,7 +66,7 @@ const schema = z.array(
     name: z.string(),
     email: z.string(),
     phone: z.string(),
-    created_at: z.string(),
+    created_at: z.string()
   })
 )
 
