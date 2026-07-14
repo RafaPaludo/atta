@@ -22,10 +22,10 @@ function getErrorMessage(error) {
 
   // 2. Erros de banco de dados (objeto comum com code e message)
   if (
-    typeof error === 'object' &&
-    error !== null &&
-    'code' in error &&
-    typeof error.code === 'string'
+    typeof error === 'object'
+    && error !== null
+    && 'code' in error
+    && typeof error.code === 'string'
   ) {
     const mapped = supabaseErrorDbList.find(e => e.code === error.code)
     return mapped?.translate || error.message || 'Erro de banco de dados.'

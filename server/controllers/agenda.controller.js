@@ -1,12 +1,12 @@
 import { updateAgendaService } from '../services/agenda/service.js'
 
-export async function updateAgendaController ({ agendaId, userId, payload, supabase }) {
+export async function updateAgendaController({ agendaId, userId, payload, supabase }) {
   try {
     await updateAgendaService({
       agendaId,
       payload,
       userId,
-      supabase,
+      supabase
     })
 
     return { ok: true }

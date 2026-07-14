@@ -2,20 +2,20 @@
   <UModal v-model:open="open" title="Editar contato" description="Edite o contato selecionado">
     <template #body>
       <UForm
-        v-if="props.contact"
+        v-if="formData"
         :schema="schema"
-        :state="props.contact"
+        :state="formData"
         class="space-y-4"
         @submit="onSubmit"
       >
         <UFormField label="Nome" name="name">
-          <UInput v-model="props.contact.name" placeholder="Nome completo" class="w-full" />
+          <UInput v-model="formData.name" placeholder="Nome completo" class="w-full" />
         </UFormField>
         <UFormField label="E-mail" name="email">
-          <UInput v-model="props.contact.email" placeholder="nome@exemplo.com" class="w-full" />
+          <UInput v-model="formData.email" placeholder="nome@exemplo.com" class="w-full" />
         </UFormField>
-        <UFormField label="Telefone" placeholder="(00) 0 0000-0000" name="phone">
-          <SMInputPhone v-model="props.contact.phone" class="w-full" />
+        <UFormField label="Telefone" name="phone">
+          <SMInputPhone v-model="formData.phone" class="w-full" />
         </UFormField>
         <div class="flex justify-end gap-2">
           <UButton
@@ -40,28 +40,46 @@
 <script setup>
 import * as z from 'zod'
 
+// Schema de validação
 const schema = z.object({
-  name: z.string().min(2, 'Poucos caracteres'),
+  name: z.string().min(2, 'O nome deve ter pelo menos 2 caracteres'),
   email: z.string().email('E-mail inválido'),
-  phone: z.string().regex(/^\d{11}$/, 'O telefone deve ter 11 dígitos'),
+  phone: z.string().regex(/^\d{11}$/, 'O telefone deve ter 11 dígitos')
 })
 
+// Props e Emits
 const props = defineProps({
-  contact: Object,
-  openModal: Boolean
+  contact: {
+    type: Object,
+    required: false,
+    default: () => ({ name: '', email: '', phone: '' })
+  },
+  openModal: {
+    type: Boolean,
+    default: false
+  }
 })
 
-const emit = defineEmits(['update:openModal'])
+const emit = defineEmits(['update:openModal', 'updated'])
+
+// Estado local
 const open = ref(false)
 const loading = ref(false)
+const formData = ref({ ...props.contact })
 
 const toast = useToast()
 
-async function onSubmit(event) {
+// Funções
+function formatPhoneNumber(phone) {
+  // Remove caracteres não numéricos
+  return phone.replace(/\D/g, '')
+}
+
+async function onSubmit(event = {}) {
   try {
     loading.value = true
 
-    const { error } = await $fetch(`/api/contacts/${props.contact.id}`, {
+    const { data, error } = await $fetch(`/api/contacts/${props.contact.id}`, {
       method: 'PATCH',
       body: {
         name: event.data.name,
@@ -72,26 +90,53 @@ async function onSubmit(event) {
 
     if (error) throw error
 
-    toast.add({ title: 'Sucesso', description: `Contato ${event.data.name} atualizado com sucesso`, color: 'success' })
+    toast.add({
+      title: 'Sucesso!',
+      description: `Contato ${event.data.name} atualizado com sucesso`,
+      color: 'success'
+    })
+
+    // Emite evento de atualização para o pai
+    emit('updated', data)
+
+    // Fecha o modal
     open.value = false
   } catch (err) {
-    console.error(err)
-    alert('Erro ao editar o contato')
+    console.error('Erro ao editar contato:', err)
+    toast.add({
+      title: 'Erro ao atualizar',
+      description: err.message || 'Ocorreu um erro inesperado. Tente novamente.',
+      color: 'error'
+    })
   } finally {
     loading.value = false
   }
 }
 
+// Watchers para sincronizar o estado
 watch(
   () => props.openModal,
-  (val) => {
-    open.value = val // quando o pai muda a prop, abre/fecha o modal
-  }
+  (newVal) => {
+    open.value = newVal
+    if (newVal && props.contact) {
+      // Reseta o formulário quando o modal abre
+      formData.value = { ...props.contact }
+    }
+  },
+  { immediate: true }
 )
 
-watch(open, (val) => {
-  if (val !== props.openModal) {
-    emit('update:openModal', val)
+watch(open, (newVal) => {
+  if (newVal !== props.openModal) {
+    emit('update:openModal', newVal)
+  }
+})
+
+// Limpa o formulário ao fechar o modal
+watch(open, (newVal) => {
+  if (!newVal) {
+    // Opcional: reseta o formulário ao fechar
+    // formData.value = { name: '', email: '', phone: '' }
   }
 })
 </script>

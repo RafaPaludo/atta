@@ -5,7 +5,7 @@
  */
 export function convertTimestampToTimeStringWithTZ(timestamp, tz = 'America/Sao_Paulo') {
   if (!timestamp) return ''
-  
+
   const date = new Date(timestamp)
   const formatter = new Intl.DateTimeFormat('pt-BR', {
     timeZone: tz,

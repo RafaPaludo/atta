@@ -16,6 +16,6 @@ export default defineEventHandler(async (event) => {
     userId: user.sub,
     payload: body,
     meetingId,
-    supabase,
+    supabase
   })
 })

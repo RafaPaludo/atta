@@ -1,5 +1,5 @@
 /**
- * 
+ *
   Cria um debounce, após um determinado tempo a função é executada ou pode ser cancelada manualmente.
   Útil para salvar automaticamente as ações do usuário sem sobrecarregar o banco.
 

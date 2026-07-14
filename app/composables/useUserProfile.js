@@ -27,7 +27,7 @@ export const useUserProfile = () => {
     userProfile.value = Object.assign(data, {
       email: authUser.value.email,
       created_at: authUser.value.created_at,
-      last_sign_in_at: authUser.value.last_sign_in_at,
+      last_sign_in_at: authUser.value.last_sign_in_at
     })
 
     return userProfile.value
@@ -36,6 +36,6 @@ export const useUserProfile = () => {
   // Exponho métodos
   return {
     userProfile,
-    fetchUserProfile,
+    fetchUserProfile
   }
 }

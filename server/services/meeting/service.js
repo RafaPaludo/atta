@@ -3,7 +3,7 @@ import {
   deleteMeetingById,
   findMeetingByTimeRange,
   findMeetingByIdWithIncludes,
-  updateMeetingById,
+  updateMeetingById
 } from '../../repositories/meeting.repository'
 import { insertAgendas, updateAgenda, findAgendasIdByMeetingId, deleteAgendaById } from '../../repositories/agenda.repository'
 import { deleteAgendaPointByAgendaId } from '../../repositories/agenda-points.repository'
@@ -38,7 +38,7 @@ export async function createMeetingWithSetupService({ payload, userId, supabase 
         meeting_url,
         start_time: startTime,
         end_time: endTime,
-        created_by: userId,
+        created_by: userId
       },
       supabase
     )
@@ -61,11 +61,11 @@ export async function createMeetingWithSetupService({ payload, userId, supabase 
       [
         ...filterd.map(participant => ({
           contact_id: participant.id,
-          meeting_id: meeting.id,
+          meeting_id: meeting.id
         })),
         {
           user_id: userId,
-          meeting_id: meeting.id,
+          meeting_id: meeting.id
         }
       ],
       supabase
@@ -95,22 +95,22 @@ function buildMeetingReminders(meetingId, startTime) {
       remind_at: new Date(Date.now() + 5 * ONE_MINUTE_IN_SECONDS), // agora (ou poucos minutos à frente)
       reminder_type: 'whatsapp',
       reminder_status: 'pending',
-      reminder_stage: 'first',
+      reminder_stage: 'first'
     },
     {
       meeting_id: meetingId,
       remind_at: new Date(new Date(startTime).getTime() - ONE_DAY_IN_SECONDS), // 1 dia antes
       reminder_type: 'whatsapp',
       reminder_status: 'pending',
-      reminder_stage: 'second',
+      reminder_stage: 'second'
     },
     {
       meeting_id: meetingId,
       remind_at: new Date(new Date(startTime).getTime() - 60 * ONE_MINUTE_IN_SECONDS), // 1 hora antes
       reminder_type: 'whatsapp',
       reminder_status: 'pending',
-      reminder_stage: 'third',
-    },
+      reminder_stage: 'third'
+    }
   ]
 }
 
@@ -138,7 +138,7 @@ export async function updateMeetingStatusService({ meetingId, payload, userId, s
   }
 
   const payloadToDB = {
-    meeting_status: meeting_status,
+    meeting_status: meeting_status
   }
 
   if (meeting_status === MEETING_STATUS.IN_PROGRESS.key) {
@@ -205,7 +205,7 @@ export async function updateMeetingService({ meetingId, payload, userId, supabas
     meeting_type,
     meeting_url,
     start_time: startTime,
-    end_time: endTime,
+    end_time: endTime
   }
 
   let meeting
@@ -236,14 +236,14 @@ export async function updateMeetingService({ meetingId, payload, userId, supabas
     }
 
     for (let i = 0, j = agendas.length; i < j; i++) {
-      const currentAgenda = agendas[i];
-      
+      const currentAgenda = agendas[i]
+
       // Atualiza as agendas existentes
       if (currentAgenda.id) {
         await updateAgenda(
           currentAgenda.id,
           { title: currentAgenda.title, meeting_id: meetingId },
-          supabase,
+          supabase
         )
       } else {
         // Cria agendas novas
@@ -258,24 +258,24 @@ export async function updateMeetingService({ meetingId, payload, userId, supabas
     const meetingParticipants = await findParticipantsIdByMeetingId(meetingId, supabase)
     const incomingParticipants = participants.filter(participant => !meetingParticipants.some(meetingParticipant => participant.id === meetingParticipant.id))
     const participantsToRemove = meetingParticipants.filter(meetingParticipant => !participants.some(participant => participant.id === meetingParticipant.id))
-    
+
     // Adiciona novos participantes
     if (incomingParticipants.length > 0) {
       await insertParticipants(
         [
           ...incomingParticipants.map(participant => ({
             contact_id: participant.id,
-            meeting_id: meetingId,
-          })),
+            meeting_id: meetingId
+          }))
         ],
         supabase
       )
     }
-    
+
     // Remove participantes
     if (participantsToRemove.length > 0) {
       for (let i = 0, j = participantsToRemove.length; i < j; i++) {
-        const participantToRemove = participantsToRemove[i];
+        const participantToRemove = participantsToRemove[i]
         await deleteParticipants(participantToRemove.id, supabase)
       }
     }
@@ -287,7 +287,7 @@ export async function updateMeetingService({ meetingId, payload, userId, supabas
 }
 
 function normalizeParticipants(participants = []) {
-  return participants.map(p => {
+  return participants.map((p) => {
     if (p.contacts) {
       return {
         id: p.id,
@@ -297,7 +297,7 @@ function normalizeParticipants(participants = []) {
         email: p.contacts.email,
         phone: p.contacts.phone,
         role: p.role,
-        status: p.status,
+        status: p.status
       }
     }
 
@@ -309,7 +309,7 @@ function normalizeParticipants(participants = []) {
         name: p.users.name,
         phone: p.users.phone,
         role: p.role,
-        status: p.status,
+        status: p.status
       }
     }
 

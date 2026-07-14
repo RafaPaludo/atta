@@ -6,7 +6,7 @@
  *
  * Retorna o caminho persistido do arquivo.
  */
-export async function uploadMeetingPdf({ 
+export async function uploadMeetingPdf({
   meetingId,
   buffer,
   supabase
@@ -19,7 +19,7 @@ export async function uploadMeetingPdf({
       contentType: 'application/pdf',
       upsert: true
     })
-  
+
   if (error) throw error
 
   return data.path
@@ -30,7 +30,7 @@ export async function uploadMeetingPdf({
  *
  * A URL expira após o tempo configurado em `expiresIn`.
  */
-export async function createSignedStorageUrl({ 
+export async function createSignedStorageUrl({
   bucket,
   filePath,
   expiresIn = 60 * 60 * 24, // 24 Horas

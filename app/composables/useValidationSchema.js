@@ -5,10 +5,10 @@ import { z } from 'zod'
  * Fácil de traduzir ou ajustar depois
  */
 const messages = {
-  required: (field) => `${field} é obrigatório`,
+  required: field => `${field} é obrigatório`,
   invalidEmail: 'E-mail inválido',
-  minLength: (n) => `Precisa conter no mínimo ${n} caracteres`,
-  maxLength: (n) => `Pode conter no máximo ${n} caracteres`
+  minLength: n => `Precisa conter no mínimo ${n} caracteres`,
+  maxLength: n => `Pode conter no máximo ${n} caracteres`
 }
 
 /**

@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
   const participants = body.participants || []
 
   const start_time = ''
-  const end_time = '' 
+  const end_time = ''
 
   if (!user) {
     throw createError({ statusCode: 401, statusMessage: 'Não autenticado.' })
@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
       meeting_type: meeting.meeting_type,
       attachment_url: meeting.attachment_url,
       start_time,
-      end_time,
+      end_time
     })
     .eq('id', meetingId)
     .eq('created_by', user.sub)
@@ -70,7 +70,7 @@ export default defineEventHandler(async (event) => {
         .from('meeting_agendas')
         .update({
           title: agenda.title,
-          order_index: agenda.order_index || 0,
+          order_index: agenda.order_index || 0
         })
         .eq('id', agenda.id)
     }
@@ -83,18 +83,18 @@ export default defineEventHandler(async (event) => {
         .from('meeting_agendas')
         .insert({
           meeting_id: meetingId,
-          title: agenda.title,
+          title: agenda.title
         })
     }
   }
 
   /*
     TODO::
-    
+
     NÃO PERMITE REMOVER PARTICIPANTES DEPOIS QUE ELES ESTEJAM COM ENCAMINHAMENTOS ASSINADOS
-  
-  */ 
-  
+
+  */
+
   // 3. Atualizar participants
   await client
     .from('meeting_participants')
@@ -102,9 +102,9 @@ export default defineEventHandler(async (event) => {
     .eq('meeting_id', meetingId)
 
   if (participants.length > 0) {
-    const participantsPayload = participants.map((participant) => ({
+    const participantsPayload = participants.map(participant => ({
       meeting_id: meetingId,
-      contact_id: participant.id,
+      contact_id: participant.id
     }))
 
     const { error: participantsError } = await client

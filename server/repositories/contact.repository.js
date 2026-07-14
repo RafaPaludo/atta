@@ -60,5 +60,3 @@ export async function deleteContact({ contactId, userId }, supabase) {
 
   return data
 }
-
-

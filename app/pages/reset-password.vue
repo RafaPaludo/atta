@@ -12,7 +12,12 @@
           Já possui conta? <ULink to="/login" class="text-primary font-medium">Fazer login</ULink>
         </template>
         <template #validation>
-          <UAlert v-if="alert" color="error" icon="i-lucide-info" :title="alert" />
+          <UAlert
+            v-if="alert"
+            color="error"
+            icon="i-lucide-info"
+            :title="alert"
+          />
         </template>
       </UAuthForm>
     </UPageCard>
@@ -29,7 +34,6 @@ definePageMeta({
 // Hooks
 const { getErrorMessage } = useErrorMessages()
 const supabase = useSupabaseClient()
-const toast = useToast()
 
 // Schema
 
@@ -39,17 +43,17 @@ const fields = [{
   type: 'text',
   label: 'E-mail',
   placeholder: 'Digite seu e-mail',
-  required: true,
+  required: true
 }]
-const alert = ref("")
+const alert = ref('')
 
 // Functions
 async function onSignUpNewUser(payload) {
-  alert.value = ""
+  alert.value = ''
 
   try {
     await supabase.auth.resetPasswordForEmail(payload.data.email, {
-      redirectTo: 'http://localhost:3000/new-password',
+      redirectTo: 'http://localhost:3000/new-password'
     })
   } catch (error) {
     alert.value = getErrorMessage(error)

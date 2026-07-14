@@ -14,6 +14,6 @@ export default defineEventHandler(async (event) => {
   return deleteAgendaPointByIdController({
     agendaPointId: agendaPointId,
     userId: user.sub,
-    supabase,
+    supabase
   })
 })

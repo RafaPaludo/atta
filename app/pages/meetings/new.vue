@@ -11,7 +11,12 @@
     <template #body>
       <div class="w-full max-w-3xl mx-auto">
         <UPageCard variant="subtle">
-          <UStepper ref="stepper" :items="items" :ui="{ content: 'mt-10' }" disabled>
+          <UStepper
+            ref="stepper"
+            :items="items"
+            :ui="{ content: 'mt-10' }"
+            disabled
+          >
             <template #basicInfo>
               <MeetingsNewBasicInfo
                 :meeting="meeting"
@@ -51,7 +56,7 @@ const items = [
     title: 'Passo 1',
     description: 'Informações básicas',
     icon: 'i-lucide-notebook-pen'
-  },{
+  }, {
     slot: 'participants',
     title: 'Passo 2',
     description: 'Participantes',
@@ -67,14 +72,14 @@ const items = [
 const stepper = useTemplateRef('stepper')
 
 const initialMeeting = {
-  title: 'Diretoria',
+  title: 'Diretoria IPB',
   date: null,
-  start_time: '02:00',
-  end_time: '15:00',
-  location: 'Centro',
-  meeting_url: '',
-  meeting_type: 'presencial',
-  agendas: [{ title: 'Pagamento' }, { title: 'Candidatura 2026' }],
+  start_time: '19:00',
+  end_time: '20:00',
+  location: '',
+  meeting_url: 'http://coisa.circle.co',
+  meeting_type: 'online',
+  agendas: [{ title: 'FBIS 2026' }, { title: 'FICOOP 2026' }]
 }
 
 const meeting = reactive({ ...initialMeeting })
@@ -91,9 +96,11 @@ function onParticipantsCompleted(data) {
   stepper.value?.next()
 }
 
-function goPrevious() { stepper.value?.prev ? stepper.value.prev() : '' }
+function goPrevious() {
+  return stepper.value?.prev ? stepper.value.prev() : ''
+}
 
-function feedbackCreatedMeeting () {
+function feedbackCreatedMeeting() {
   toast.add({
     title: 'Reunião criada com sucesso!',
     color: 'success',

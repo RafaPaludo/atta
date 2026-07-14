@@ -19,14 +19,19 @@
       required
       class="flex max-sm:flex-col justify-between items-center gap-4"
       :ui="{ container: 'flex-1', label: 'min-w-30' }"
-    > 
+    >
       <template #hint>
         <UTooltip text="Necessário marcar com ao menos 5 dias de antecedência" :ui="{ content: '' }">
           <UIcon name="i-lucide-badge-alert" class="size-5" />
         </UTooltip>
       </template>
       <UPopover>
-        <UButton color="primary" variant="subtle" icon="i-lucide-calendar" class="w-full">
+        <UButton
+          color="primary"
+          variant="subtle"
+          icon="i-lucide-calendar"
+          class="w-full"
+        >
           {{ meeting.date ? df.format(meeting.date.toDate(getLocalTimeZone())) : 'Selecione uma data' }}
         </UButton>
 
@@ -50,7 +55,12 @@
       class="flex max-sm:flex-col justify-between items-center gap-4"
       :ui="{ container: 'flex-1', label: 'min-w-35' }"
     >
-      <UInput v-model="meeting.start_time" type="time" autocomplete="off" class="w-full" />
+      <UInput
+        v-model="meeting.start_time"
+        type="time"
+        autocomplete="off"
+        class="w-full"
+      />
     </UFormField>
     <USeparator />
 
@@ -62,7 +72,12 @@
       class="flex max-sm:flex-col justify-between items-center gap-4"
       :ui="{ container: 'flex-1', label: 'min-w-35' }"
     >
-      <UInput v-model="meeting.end_time" type="time" autocomplete="off" class="w-full" />
+      <UInput
+        v-model="meeting.end_time"
+        type="time"
+        autocomplete="off"
+        class="w-full"
+      />
     </UFormField>
     <USeparator />
 
@@ -84,7 +99,7 @@
         :items="localTypes"
       />
     </UFormField>
-    
+
     <!-- Local -->
     <UFormField
       v-if="meeting.meeting_type === 'presencial'"
@@ -157,9 +172,9 @@ const meeting = defineModel()
 const localTypes = ref(['presencial', 'online'])
 
 // Bloqueia de datas < hoje + 5 dias
-function isDateUnavailable (date) {
+function isDateUnavailable(date) {
   const currentDate = today(getLocalTimeZone())
-  const minDate = currentDate.add({ days: 5})
+  const minDate = currentDate.add({ days: 5 })
 
   // Bloqueia se a data for menor que "hoje + 5 dias"
   return date.compare(minDate) < 0

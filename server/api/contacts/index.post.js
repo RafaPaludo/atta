@@ -14,6 +14,6 @@ export default defineEventHandler(async (event) => {
   return insertContactController({
     payload: body,
     supabase,
-    userId: user.sub,
+    userId: user.sub
   })
 })

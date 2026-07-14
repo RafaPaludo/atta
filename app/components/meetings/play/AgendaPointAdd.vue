@@ -18,7 +18,7 @@
           autofocus
         />
       </UFormField>
-  
+
       <div class="mt-3 mb-5 flex items-center gap-12">
         <UFormField
           name="assigned"
@@ -35,12 +35,12 @@
           >
             <template #item-label="{ item }">
               {{ item.name }}
-    
+
               <span class="text-muted pl-1">
                 {{ unFormatPhoneNumber(item.phone) }}
               </span>
             </template>
-    
+
             <template #default="{ modelValue }">
               {{ props.participants.find(contact => contact.id === modelValue)?.name || 'Selecione um responsável' }}
             </template>
@@ -57,20 +57,24 @@
             <UButton variant="subtle" icon="i-lucide-calendar" size="lg">
               {{ formState.dueDate ? df.format(formState.dueDate.toDate(getLocalTimeZone())) : 'Selecione a data' }}
             </UButton>
-    
+
             <template #content>
-              <UCalendar v-model="formState.dueDate" class="p-2"  />
+              <UCalendar v-model="formState.dueDate" class="p-2" />
             </template>
           </UPopover>
         </UFormField>
       </div>
-  
+
       <div class="flex gap-2">
-        <UButton type="submit" :loading="loading">Adicionar</UButton>
-        <UButton variant="outline" @click="resetAgendaPointForm">Cancelar</UButton>
+        <UButton type="submit" :loading="loading">
+          Adicionar
+        </UButton>
+        <UButton variant="outline" @click="resetAgendaPointForm">
+          Cancelar
+        </UButton>
       </div>
     </UForm>
-  
+
     <UButton
       v-else
       color="primary"
@@ -91,16 +95,16 @@ import { DateFormatter, getLocalTimeZone } from '@internationalized/date'
 const props = defineProps({
   agenda: {
     type: Object,
-    default: null,
+    default: null
   },
   participants: {
     type: Array,
-    required: true,
+    required: true
   },
   disabled: {
     type: Boolean,
     default: true
-  },
+  }
 })
 const emit = defineEmits(['update:agendas'])
 const toast = useToast()
@@ -117,8 +121,8 @@ const schema = z.object({
     era: z.string(),
     day: z.number(),
     month: z.number(),
-    year: z.number(),
-  }, 'Campo necessário'),
+    year: z.number()
+  }, 'Campo necessário')
 })
 
 const isEditing = ref(false)
@@ -126,22 +130,22 @@ const loading = ref(false)
 const formState = reactive({
   agendaPoint: '',
   assigned: undefined,
-  dueDate: undefined,
+  dueDate: undefined
 })
 
-async function createAgendaPoint ({ data }, agenda) {
+async function createAgendaPoint({ data }, agenda) {
   loading.value = true
 
   try {
     const agendaPointCreated = await $fetch(`/api/agenda-points`, {
-      method: "POST",
+      method: 'POST',
       body: {
         agenda_id: agenda.id,
         content: data.agendaPoint,
         participant_id: data.assigned,
         status: 'pending',
         order_index: 0,
-        due_date: convertUCalendarToTimeStampZ(data.dueDate),
+        due_date: convertUCalendarToTimeStampZ(data.dueDate)
       }
     })
 
@@ -158,7 +162,7 @@ async function createAgendaPoint ({ data }, agenda) {
   }
 }
 
-function resetAgendaPointForm () {
+function resetAgendaPointForm() {
   isEditing.value = false
 
   formState.agendaPoint = ''

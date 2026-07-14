@@ -8,13 +8,12 @@
 </template>
 
 <script setup>
-
 const props = defineProps(['error'])
 
 const errorStatusFriendly = {
   statusCode: props.error.statusCode || 404,
   statusMessage: 'Página não encontrada',
-  message: 'Desculpe, mas a página não foi encontrada.',
+  message: 'Desculpe, mas a página não foi encontrada.'
 }
 
 const clearButton = {
@@ -22,7 +21,7 @@ const clearButton = {
   color: 'primary',
   variant: 'solid',
   label: 'Ir para página inicial',
-  icon: 'i-lucide-arrow-left',
+  icon: 'i-lucide-arrow-left'
 }
 
 useSeoMeta({

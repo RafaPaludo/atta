@@ -1,5 +1,5 @@
 <template>
-  <UForm :state="formState" @submit="onSubmit" class="space-y-4">
+  <UForm :state="formState" class="space-y-4" @submit="onSubmit">
     <!-- Campo de adicionar participante -->
     <UFormField
       name="participant"
@@ -12,7 +12,7 @@
         v-model="selectedParticipants"
         v-model:search-term="searchTerm"
         :items="contacts"
-        :searchInput="{ placeholder: 'Procurar...', variant: 'none' }"
+        :search-input="{ placeholder: 'Procurar...', variant: 'none' }"
         icon="i-lucide-search"
         multiple
         option-attribute="name"
@@ -40,8 +40,12 @@
         >
           <div class="flex gap-3">
             <div>{{ p.name }}</div>
-            <div class="text-muted">{{ p.email }}</div>
-            <div class="text-muted">{{ unFormatPhoneNumber(p.phone) }}</div>
+            <div class="text-muted">
+              {{ p.email }}
+            </div>
+            <div class="text-muted">
+              {{ unFormatPhoneNumber(p.phone) }}
+            </div>
           </div>
           <UButton
             color="error"

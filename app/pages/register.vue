@@ -8,7 +8,9 @@
             class="iconify i-lucide:lock size-8 shrink-0 inline-block mb-2"
           />
         </div>
-        <h2 class="text-xl text-pretty font-semibold text-highlighted">Registre-se</h2>
+        <h2 class="text-xl text-pretty font-semibold text-highlighted">
+          Registre-se
+        </h2>
         <p class="mt-1 text-base text-pretty text-muted ">
           Já possui conta?
           <UButton variant="link" to="/login" class="p-0 hover:text-default transition-colors text-base">
@@ -17,15 +19,25 @@
         </p>
       </div>
 
-      <UForm :state="formData" :schema="registerSchema" @submit="onSignUpNewUser" class="space-y-4">
+      <UForm
+        :state="formData"
+        :schema="registerSchema"
+        class="space-y-4"
+        @submit="onSignUpNewUser"
+      >
         <!-- Nome -->
         <UFormField
           name="name"
           label="Nome"
-          
+
           required
         >
-          <UInput v-model="formData.name" autocomplete="off" class="w-full" placeholder="Digite seu nome" />
+          <UInput
+            v-model="formData.name"
+            autocomplete="off"
+            class="w-full"
+            placeholder="Digite seu nome"
+          />
         </UFormField>
 
         <!-- Email -->
@@ -34,7 +46,12 @@
           label="E-mail"
           required
         >
-          <UInput v-model="formData.email" autocomplete="off" class="w-full" placeholder="email@exemplo.com" />
+          <UInput
+            v-model="formData.email"
+            autocomplete="off"
+            class="w-full"
+            placeholder="email@exemplo.com"
+          />
         </UFormField>
 
         <!-- Telefone -->
@@ -111,7 +128,12 @@
 
         <!-- Botão de salvar/avançar -->
         <div class="flex justify-center mt-10">
-          <UButton type="submit" block size="xl" icon="i-lucide-user-plus">
+          <UButton
+            type="submit"
+            block
+            size="xl"
+            icon="i-lucide-user-plus"
+          >
             Criar conta
           </UButton>
         </div>
@@ -133,7 +155,7 @@ const supabaseClient = useSupabaseClient()
 const toast = useToast()
 
 // Data
-const alert = ref("")
+const alert = ref('')
 const showPassword = ref(false)
 const showConfirmPassword = ref(false)
 const formData = reactive({
@@ -146,7 +168,7 @@ const formData = reactive({
 
 // Functions
 async function onSignUpNewUser({ data }) {
-  alert.value = ""
+  alert.value = ''
 
   try {
     const { data: authData, error } = await supabaseClient.auth.signUp({

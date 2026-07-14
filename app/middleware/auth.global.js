@@ -1,7 +1,7 @@
 export default defineNuxtRouteMiddleware(async (to) => {
   const user = useSupabaseUser()
   const { userProfile, fetchUserProfile } = useUserProfile()
-  
+
   const publicPages = ['/login', '/register', '/reset-password', '/new-password']
 
   if (!user.value && !publicPages.includes(to.path)) {

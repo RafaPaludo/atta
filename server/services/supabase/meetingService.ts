@@ -2,7 +2,7 @@ import { supabaseAdmin } from './client'
 
 /**
  * Recupera uma reunião específica juntamente com suas pautas.
- * 
+ *
  * @param meetingId - ID da reunião
  * @returns Objeto da reunião ou null em caso de erro
  */
@@ -33,7 +33,6 @@ export async function getMeetingWithAgendas(meetingId: string) {
 
     console.log(`[getMeetingWithAgendas] Reunião ${meetingId} carregada com sucesso`)
     return data
-
   } catch (err) {
     console.error(`[getMeetingWithAgendas] Erro inesperado ao buscar reunião ${meetingId}:`, err)
     return null

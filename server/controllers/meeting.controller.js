@@ -3,7 +3,7 @@ import {
   getMeetingAtTimeService,
   updateMeetingStatusService,
   getMeetingService,
-  updateMeetingService,
+  updateMeetingService
 } from '../services/meeting/service'
 import { generateMeetingPdfService } from '../services/meeting/generate-meeting-pdf.service'
 
@@ -12,14 +12,14 @@ export async function createMeetingWithSetupController({ payload, userId, supaba
     return await createMeetingWithSetupService({
       payload,
       userId,
-      supabase,
+      supabase
     })
   } catch (error) {
     if (error.message === 'INVALID_PAYLOAD') {
       throw createError({ statusCode: 400, statusMessage: 'Dados inválidos' })
     }
 
-    console.error('Falha inesperada no updateMeetingService:', error);
+    console.error('Falha inesperada no updateMeetingService:', error)
     throw createError({ statusCode: 500, statusMessage: 'Erro interno no servidor.' })
   }
 }
@@ -30,7 +30,7 @@ export async function getMeetingAtTimeController({ startUTC, endUTC, userId, sup
       startUTC,
       endUTC,
       userId,
-      supabase,
+      supabase
     })
   } catch (error) {
     if (error.message === 'INVALID_DATE') {
@@ -47,7 +47,7 @@ export async function updateMeetingStatusController({ payload, userId, meetingId
       payload,
       meetingId,
       userId,
-      supabase,
+      supabase
     })
   } catch (error) {
     if (error.message === 'INVALID_STATUS') {
@@ -64,7 +64,7 @@ export async function updateMeetingController({ payload, userId, meetingId, supa
       payload,
       meetingId,
       userId,
-      supabase,
+      supabase
     })
   } catch (error) {
     if (error.message === 'INVALID_PAYLOAD') {
@@ -110,7 +110,7 @@ export async function getPDFMeetingController({ userId, meetingId, supabase }) {
     return await generateMeetingPdfService({
       meetingId,
       userId,
-      supabase,
+      supabase
     })
   } catch (error) {
     if (error.message === 'NOT_FOUND') {

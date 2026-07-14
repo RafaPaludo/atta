@@ -16,7 +16,7 @@ export async function buildMeetingSummaryPdf(meeting) {
   // Adiciona informações no header que é um PDF
   // event.node.res.setHeader('Content-Type', 'application/pdf');
   // event.node.res.setHeader('Content-Disposition', 'attachment; filename="example.pdf"');
-  
+
   /*
   =======
     [CABEÇALHO]
@@ -29,7 +29,7 @@ export async function buildMeetingSummaryPdf(meeting) {
   doc
     .fontSize(18)
     .text('Resumo da Reunião', { align: 'center' })
-  
+
   doc.moveDown(1.5)
   /*
   =======
@@ -45,18 +45,18 @@ export async function buildMeetingSummaryPdf(meeting) {
     .fontSize(11)
     .text('Título: ' + meeting.title)
     .text('Data: ' + convertTimeStampzToLocalDate(meeting.start_time))
-    .text('Horário: ' + convertTimestampToTimeStringWithTZ(meeting.start_time)+ ' - ' + convertTimestampToTimeStringWithTZ(meeting.end_time))
+    .text('Horário: ' + convertTimestampToTimeStringWithTZ(meeting.start_time) + ' - ' + convertTimestampToTimeStringWithTZ(meeting.end_time))
     .text(
-      'Status: ' +
-      Object.values(MEETING_STATUS).find(status => status.key === meeting.meeting_status)?.translatedPT
+      'Status: '
+      + Object.values(MEETING_STATUS).find(status => status.key === meeting.meeting_status)?.translatedPT
     )
-  
+
   doc.moveDown()
 
   doc
     .text('Participantes: ')
 
-  meeting.meeting_participants.forEach(participant => {
+  meeting.meeting_participants.forEach((participant) => {
     doc.text(`- ${participant.users?.name || participant.contacts?.name}`)
   })
 
@@ -92,9 +92,9 @@ export async function buildMeetingSummaryPdf(meeting) {
     if (!meetingParticipant) return '—'
 
     return (
-      meetingParticipant.contacts?.name ||
-      meetingParticipant.users?.name ||
-      '—'
+      meetingParticipant.contacts?.name
+      || meetingParticipant.users?.name
+      || '—'
     )
   }
 
@@ -102,7 +102,7 @@ export async function buildMeetingSummaryPdf(meeting) {
     doc.moveDown()
     doc.fontSize(14).text(`${index + 1}. ${agenda.title}`)
 
-    agenda.agenda_points.forEach(point => {
+    agenda.agenda_points.forEach((point) => {
       doc
         .fontSize(11)
         .text(`- ${point.content}`, { indent: 20 })
@@ -110,7 +110,7 @@ export async function buildMeetingSummaryPdf(meeting) {
         .text(`Status: ${AGENDA_POINTS_TRANSLATION[point.status]}`, { indent: 40 })
     })
   })
-  
+
   doc.moveDown(1.5)
 
   doc

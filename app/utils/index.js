@@ -1,5 +1,5 @@
 export function formatPhoneNumber(phone) {
-  return "+55" + phone
+  return '+55' + phone
 }
 
 /**

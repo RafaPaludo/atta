@@ -21,18 +21,18 @@ export interface MeetingWithAgendas {
 }
 
 export interface Reminder {
-  id: string;
-  meeeting_id: string;
-  remind_at: string;
-  reminder_type: string;
-  reminder_stage: 'first' | 'second' | 'third';
-  reminder_status: string;
-  send_at: string;
+  id: string
+  meeeting_id: string
+  remind_at: string
+  reminder_type: string
+  reminder_stage: 'first' | 'second' | 'third'
+  reminder_status: string
+  send_at: string
 }
 
 export interface Contacts {
-  email: string;
-  id: number;
-  name: string;
-  phone: string;
+  email: string
+  id: number
+  name: string
+  phone: string
 }

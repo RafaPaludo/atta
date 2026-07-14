@@ -6,17 +6,17 @@ import { getContactByUserController } from '../../../controllers/contact.control
 */
 export default defineEventHandler(async (event) => {
   const user = await serverSupabaseUser(event)
-  
+
   if (!user) {
     throw createError({ statusCode: 401, statusMessage: 'Não autenticado' })
   }
-  
+
   const supabase = await serverSupabaseClient(event)
   const contactId = getRouterParam(event, 'id')
-  
+
   return getContactByUserController({
     userId: user.sub,
     contactId,
-    supabase,
+    supabase
   })
 })

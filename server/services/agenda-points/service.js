@@ -4,7 +4,7 @@ import {
   insertAgendaPoint,
   findAgendaPointWithMeeting,
   updateAgendaPointById,
-  deleteAgendaPointById,
+  deleteAgendaPointById
 } from '../../repositories/agenda-points.repository'
 
 export async function insertAgendaPointsService({ payload, userId, supabase }) {
@@ -31,7 +31,7 @@ export async function insertAgendaPointsService({ payload, userId, supabase }) {
       participant_id: participant_id ?? null,
       status: status ?? 'pending',
       order_index: order_index ?? 0,
-      due_date,
+      due_date
     },
     supabase
   )
@@ -57,7 +57,7 @@ export async function updateAgendaPointsService({ agendaPointId, payload, userId
     'status',
     'participant_id',
     'order_index',
-    'due_date',
+    'due_date'
   ]
 
   const updatePayload = {}

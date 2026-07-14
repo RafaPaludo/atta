@@ -1,18 +1,18 @@
 export const MEETING_STATUS = Object.freeze({
   SCHEDULED: {
     key: 'scheduled',
-    translatedPT: 'Agendada',
+    translatedPT: 'Agendada'
   },
   IN_PROGRESS: {
     key: 'in_progress',
-    translatedPT: 'Iniciada',
+    translatedPT: 'Iniciada'
   },
   PAUSED: {
     key: 'paused',
-    translatedPT: 'Pausada',
+    translatedPT: 'Pausada'
   },
   FINISHED: {
     key: 'finished',
-    translatedPT: 'Finalizada',
+    translatedPT: 'Finalizada'
   }
 })

@@ -3,7 +3,7 @@ import {
   getAllContactsByUserService,
   updateContactByUserService,
   getContactByUserService,
-  deleteContactService,
+  deleteContactService
 } from '../services/contact/service.js'
 
 export async function insertContactController({ payload, userId, supabase }) {
@@ -11,7 +11,7 @@ export async function insertContactController({ payload, userId, supabase }) {
     return await insertContactService({
       payload,
       userId,
-      supabase,
+      supabase
     })
   } catch (error) {
     if (error.message === 'VALIDATION_ERROR') {
@@ -26,7 +26,7 @@ export async function getAllContactsByUserController({ userId, supabase }) {
   try {
     return await getAllContactsByUserService({
       userId,
-      supabase,
+      supabase
     })
   } catch (error) {
     throw createError({ statusCode: 400, statusMessage: error.message })
@@ -39,7 +39,7 @@ export async function updateContactByUserController({ userId, supabase, contactI
       userId,
       supabase,
       payload,
-      contactId,
+      contactId
     })
   } catch (error) {
     throw createError({ statusCode: 400, statusMessage: error.message })
@@ -51,7 +51,7 @@ export async function getContactByUserController({ userId, contactId, supabase }
     return await getContactByUserService({
       contactId,
       userId,
-      supabase,
+      supabase
     })
   } catch (error) {
     throw createError({ statusCode: 400, statusMessage: error.message })
@@ -63,7 +63,7 @@ export async function deleteContactController({ userId, contactId, supabase }) {
     return await deleteContactService({
       contactId,
       userId,
-      supabase,
+      supabase
     })
   } catch (error) {
     if (error.message === 'VALIDATION_ERROR') {
