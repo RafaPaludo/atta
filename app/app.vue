@@ -17,8 +17,8 @@ useHead({
   }
 })
 
-const title = 'Sind meets'
-const description = 'Um gerenciador de reuniões pensado perfeitamente para sindicatos do Brasil.'
+const title = 'ATTA'
+const description = 'Um gerenciador de reuniões voltado para ações concretas.'
 
 useSeoMeta({
   title,

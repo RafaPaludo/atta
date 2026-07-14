@@ -9,7 +9,9 @@ Nome, E-mail, Telefone, Senha e Confirmação de Senha.
 
 ## Validações
 
-E-mail único, senha com mínimo de 6 caracteres, telefone no formato (XX) 9XXXX-XXXX.
+E-mail único, senha com mínimo de 8 caracteres, telefone no formato (XX) 9XXXX-XXXX.
+
+Caso ocorra erro no cadastro, exibe um aviso com as mensagens de erro.
 
 ## Ação
 
