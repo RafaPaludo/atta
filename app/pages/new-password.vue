@@ -4,9 +4,10 @@
       <UAuthForm
         :schema="newPasswordSchema"
         :fields="fields"
-        title="Esqueci a senha"
+        title="Redefinir senha"
+        description="Digite sua nova senha"
         icon="i-lucide-lock"
-        @submit="onSignUpNewUser"
+        @submit="onResetPassword"
       >
         <template #validation>
           <UAlert
@@ -32,32 +33,74 @@ definePageMeta({
 const { getErrorMessage } = useErrorMessages()
 const supabase = useSupabaseClient()
 const toast = useToast()
+const route = useRoute()
 
 // Data
 const fields = [{
   name: 'password',
-  label: 'Senha',
+  label: 'Nova senha',
   type: 'password',
-  placeholder: 'Digite sua senha',
+  placeholder: 'Digite sua nova senha',
   required: true
 },
 {
   name: 'confirmPassword',
   label: 'Confirmação da senha',
   type: 'password',
-  placeholder: 'Digite sua senha novamente',
+  placeholder: 'Confirme sua nova senha',
   required: true
 }]
+
 const alert = ref('')
+const loading = ref(false)
 
 // Functions
-async function onSignUpNewUser(payload) {
+async function onResetPassword(payload) {
   alert.value = ''
+  loading.value = true
 
   try {
-    return
+    const token = route.query.token || route.hash?.replace('#', '')?.split('&')?.[0]?.split('=')?.[1]
+
+    if (!token) {
+      throw new Error('Token de recuperação inválido ou expirado. Solicite um novo link.')
+    }
+
+    const { error: updateError } = await supabase.auth.updateUser({
+      password: payload.password
+    })
+
+    if (updateError) throw updateError
+
+    toast.add({
+      title: 'Senha redefinida com sucesso!',
+      description: 'Você já pode fazer login com sua nova senha.',
+      color: 'success'
+    })
+
+    setTimeout(() => navigateTo('/login'), 2000)
   } catch (error) {
+    console.error('Erro ao redefinir senha:', error)
+
     alert.value = getErrorMessage(error)
+
+    if (error instanceof Error && error.message.includes('token')) {
+      toast.add({
+        title: 'Link inválido',
+        description: alert.value,
+        color: 'error'
+      })
+    }
+  } finally {
+    loading.value = false
   }
 }
+
+// Verifica se o token existe na URL ao carregar a página
+onMounted(() => {
+  const token = route.query.token || route.hash?.replace('#', '')?.split('&')?.[0]?.split('=')?.[1]
+  if (!token) {
+    alert.value = 'Link de recuperação inválido. Solicite um novo reset de senha.'
+  }
+})
 </script>
