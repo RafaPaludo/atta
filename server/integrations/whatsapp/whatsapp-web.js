@@ -29,6 +29,8 @@ class WhatsAppWebIntegration {
     this.client.on('qr', (qr) => {
       console.log('📱 [WhatsApp] QR Code gerado! Escaneie com seu WhatsApp:')
       qrcode.generate(qr, { small: true })
+      // TODO: Não gerar o QR code em produção.
+      // Devo gerar a autenticação em DEV, depois copiar a pasta .wwebjs_auth/ (e a .wwebjs_cache/) para o ambiente de produção.
     })
 
     this.client.on('ready', () => {
