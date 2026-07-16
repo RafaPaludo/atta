@@ -58,13 +58,16 @@ class WhatsAppWebIntegration {
     this.client.initialize()
   }
 
-  processQueue() {
+  async processQueue() {
     while (this.messageQueue.length > 0 && this.isReady) {
       const item = this.messageQueue.shift()
       if (item) {
-        this.sendMessageInternal(item.phone, item.message)
-          .then(item.resolve)
-          .catch(item.reject)
+        try {
+          await this.sendMessageInternal(item.phone, item.message)
+          item.resolve()
+        } catch (err) {
+          item.reject(err)
+        }
       }
     }
   }
