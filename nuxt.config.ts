@@ -4,7 +4,8 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui',
     '@vueuse/nuxt',
-    '@nuxtjs/supabase'
+    '@nuxtjs/supabase',
+    'nuxt-cron'
   ],
 
   devtools: {
@@ -21,22 +22,22 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2024-07-11',
 
-  supabase: {
-    redirectOptions: {
-      login: '/login',
-      callback: '/confirm',
-      include: undefined,
-      exclude: ['/register', '/reset-password'],
-      saveRedirectToCookie: false,
-    }
-  },
-
   eslint: {
     config: {
       stylistic: {
         commaDangle: 'never',
         braceStyle: '1tbs'
       }
+    }
+  },
+
+  supabase: {
+    redirectOptions: {
+      login: '/login',
+      callback: '/confirm',
+      include: undefined,
+      exclude: ['/register', '/reset-password', '/new-password'],
+      saveRedirectToCookie: false
     }
   }
 })
