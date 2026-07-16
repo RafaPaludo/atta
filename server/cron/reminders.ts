@@ -6,7 +6,7 @@ import { getMeetingWithAgendas } from '../services/supabase/meetingService'
 import { mountMessageToSend } from '../utils/message/reminderMessage'
 
 export default defineCronHandler('everyMinute', async () => {
-  if (process.env.CONFIG_DONT_SENT_REMINDERS === 'true') {
+  if (process.env.CONFIG_DONT_SENT_REMINDERS_ENABLED === 'true') {
     console.log(`🔔 [CRON] Não enviará as mensagens`)
     return
   }
