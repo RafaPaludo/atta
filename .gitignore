@@ -25,3 +25,10 @@ logs
 
 # VSC
 .history
+
+# Arquivos locais do Puppetier
+.wwebjs_auth
+.wwebjs_cache
+
+# IDE
+.vscode

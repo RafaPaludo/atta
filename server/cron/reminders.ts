@@ -6,10 +6,13 @@ import { getMeetingWithAgendas } from '../services/supabase/meetingService'
 import { mountMessageToSend } from '../utils/message/reminderMessage'
 
 export default defineCronHandler('everyMinute', async () => {
+  if (process.env.CONFIG_DONT_SENT_REMINDERS_ENABLED === 'true') {
+    console.log(`🔔 [CRON] Não enviará as mensagens`)
+    return
+  }
+
   const startTime = new Date().toISOString()
   console.log(`🔔 [CRON] Execução iniciada às ${startTime}`)
-
-  return
 
   try {
     // 1️⃣ Busca lembretes pendentes
@@ -52,23 +55,26 @@ export default defineCronHandler('everyMinute', async () => {
       }
 
       // Envia mensagens
+      let allSent = true
       for (const phone of uniquePhones) {
         try {
           await sendWhatsapp(phone, message)
-          console.log(`✅ Mensagem enviada para ${phone}`)
+          console.log(`✅ [WhatsApp] Mensagem enviada para ${phone}`)
         } catch (err) {
-          console.error(`❌ Falha ao enviar mensagem para ${phone}:`, err)
-          // não dá "return" aqui — continua para os outros números e lembretes
-          // TODO: Fazer um modo de criar failed para os contatos que não foram enviados e processar isso depois
+          allSent = false
+          console.error(`❌ [WhatsApp] Falha ao enviar mensagem para ${phone}:`, err)
         }
       }
 
-      // Atualiza status do lembrete
-      try {
-        await markReminderAsSent(reminder.id)
-        console.log(`✅ Lembrete ${reminder.id} marcado como "sent"`)
-      } catch (err) {
-        console.error(`⚠️ Falha ao atualizar lembrete ${reminder.id}:`, err)
+      if (allSent) {
+        try {
+          await markReminderAsSent(reminder.id)
+          console.log(`✅ Lembrete ${reminder.id} marcado como "sent"`)
+        } catch (err) {
+          console.error(`⚠️ Falha ao atualizar lembrete ${reminder.id}:`, err)
+        }
+      } else {
+        console.warn(`⚠️ Lembrete ${reminder.id} não foi marcado como enviado devido a falhas parciais`)
       }
     }
   } catch (err) {
