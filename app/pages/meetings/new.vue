@@ -15,6 +15,7 @@
             ref="stepper"
             :items="items"
             :ui="{ content: 'mt-10' }"
+            size="xs"
             disabled
           >
             <template #basicInfo>

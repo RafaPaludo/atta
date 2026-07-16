@@ -76,6 +76,7 @@
 
                     <UButton
                       :disabled="!canEdit"
+                      icon="i-lucide-save"
                       @click="saveAgendaContent(item.content, item.id)"
                     >
                       Salvar
@@ -110,7 +111,7 @@
           </section>
 
           <USkeleton v-if="pageLoading" class="h-[60vh] w-full my-8" />
-          <aside v-else>
+          <aside v-else class="max-md:col-span-2">
             <UCard variant="subtle">
               <template #header>
                 <UIcon name="i-lucide-calendar" />

@@ -31,28 +31,34 @@
     </UFormField>
 
     <!-- Lista de participantes -->
-    <div v-if="selectedParticipants.length" class="space-y-2">
-      <ul role="list" class="divide-y divide-default">
+    <div v-if="selectedParticipants.length" class="space-y-2 overflow-x-auto">
+      <ul role="list" class="divide-y divide-default min-w-full">
         <li
           v-for="(p, i) in selectedParticipants"
           :key="i"
-          class="flex items-center justify-between gap-3 py-3 px-4"
+          class="flex items-center justify-between gap-2 py-3 px-2 sm:px-4 min-w-[280px]"
         >
-          <div class="flex gap-3">
-            <div>{{ p.name }}</div>
-            <div class="text-muted">
+          <!-- Informações do participante -->
+          <div class="flex flex-wrap items-center gap-x-2 gap-y-1 flex-1 min-w-0">
+            <span class="font-medium truncate max-w-[100px] sm:max-w-[200px]">
+              {{ p.name || 'Sem nome' }}
+            </span>
+            <span class="text-muted truncate max-w-[120px] sm:max-w-[200px] hidden xs:inline">
               {{ p.email }}
-            </div>
-            <div class="text-muted">
+            </span>
+            <span class="text-muted truncate max-w-[100px] sm:max-w-[150px] hidden sm:inline">
               {{ unFormatPhoneNumber(p.phone) }}
-            </div>
+            </span>
           </div>
+
+          <!-- Botão remover -->
           <UButton
             color="error"
             type="button"
-            size="md"
+            size="sm"
             variant="soft"
             icon="i-lucide-trash"
+            class="flex-shrink-0"
             @click="removeParticipant(i)"
           />
         </li>

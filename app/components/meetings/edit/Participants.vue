@@ -29,18 +29,24 @@
     </UFormField>
 
     <!-- Lista de participantes -->
-    <div v-if="selectedParticipants.length" class="space-y-2">
+    <div v-if="selectedParticipants.length" class="space-y-2 overflow-x-auto">
       <ul role="list" class="divide-y divide-default">
         <li
           v-for="(p, i) in selectedParticipants"
           :key="i"
           class="flex items-center justify-between gap-3 py-3 px-4"
         >
-          <div class="flex gap-3">
-            <div>{{ p.name }}</div>
-            <div class="text-muted">
+          <!-- Informações do participante -->
+          <div class="flex flex-wrap items-center gap-x-2 gap-y-1 flex-1 min-w-0">
+            <span class="font-medium truncate max-w-[100px] sm:max-w-[200px]">
+              {{ p.name || 'Sem nome' }}
+            </span>
+            <span class="text-muted truncate max-w-[120px] sm:max-w-[200px] hidden xs:inline">
+              {{ p.email }}
+            </span>
+            <span class="text-muted truncate max-w-[100px] sm:max-w-[150px] hidden sm:inline">
               {{ unFormatPhoneNumber(p.phone) }}
-            </div>
+            </span>
           </div>
           <UButton
             v-if="p.type !== 'user'"

@@ -19,7 +19,7 @@
         />
       </UFormField>
 
-      <div class="mt-3 mb-5 flex items-center gap-12">
+      <div class="mt-3 mb-5 flex flex-col gap-4 md:flex-row md:items-center md:gap-12">
         <UFormField
           name="assigned"
           label="Responsável"
@@ -81,6 +81,7 @@
       variant="soft"
       icon="i-lucide-plus"
       :disabled="disabled"
+      block
       @click="isEditing = true"
     >
       Adicionar encaminhamento

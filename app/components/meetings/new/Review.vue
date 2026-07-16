@@ -32,19 +32,25 @@
       <h3 class="text-lg font-semibold mb-2">
         👥 Participantes
       </h3>
-      <ul class="list-disc pl-6 space-y-1">
-        <li v-for="(p, i) in participants" :key="i">
-          <div class="flex gap-3">
-            <div>{{ p.name }}</div>
-            <div class="text-muted">
-              {{ p.email }}
+
+      <!-- Container com overflow para rolagem horizontal -->
+      <div class="overflow-x-auto">
+        <ul class="list-disc pl-6 space-y-1 min-w-full">
+          <li v-for="(p, i) in participants" :key="i">
+            <div class="flex flex-wrap items-center gap-x-2 gap-y-1 py-1">
+              <span class="font-medium truncate max-w-[100px] sm:max-w-[200px]">
+                {{ p.name || 'Sem nome' }}
+              </span>
+              <span class="text-muted truncate max-w-[120px] sm:max-w-[200px] hidden xs:inline">
+                {{ p.email }}
+              </span>
+              <span class="text-muted truncate max-w-[100px] sm:max-w-[150px] hidden sm:inline">
+                {{ unFormatPhoneNumber(p.phone) }}
+              </span>
             </div>
-            <div class="text-muted">
-              {{ unFormatPhoneNumber(p.phone) }}
-            </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </UCard>
 
     <!-- Botões -->

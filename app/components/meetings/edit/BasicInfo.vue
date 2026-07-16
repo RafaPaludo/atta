@@ -5,8 +5,8 @@
       name="title"
       label="Título da reunião"
       required
-      class="flex max-sm:flex-col justify-between items-center gap-4"
-      :ui="{ container: 'flex-1', label: 'min-w-35' }"
+      class="flex max-sm:flex-col max-sm:items-start justify-between items-center gap-4"
+      :ui="{ container: 'flex-1 max-sm:w-full', label: 'min-w-35' }"
     >
       <UInput v-model="meeting.title" autocomplete="off" class="w-full" />
     </UFormField>
@@ -17,7 +17,7 @@
       name="date"
       label="Data da reunião"
       required
-      class="flex max-sm:flex-col justify-between items-center gap-4"
+      class="flex max-sm:flex-col max-sm:items-start justify-between items-center gap-4"
       :ui="{ container: 'flex-1', label: 'min-w-30' }"
     >
       <template #hint>
@@ -52,8 +52,8 @@
       name="start_time"
       label="Hora de início"
       required
-      class="flex max-sm:flex-col justify-between items-center gap-4"
-      :ui="{ container: 'flex-1', label: 'min-w-35' }"
+      class="flex max-sm:flex-col max-sm:items-start justify-between items-center gap-4"
+      :ui="{ container: 'flex-1 max-sm:w-full', label: 'min-w-35' }"
     >
       <UInput
         v-model="meeting.start_time"
@@ -69,8 +69,8 @@
       name="end_time"
       label="Hora de fim"
       required
-      class="flex max-sm:flex-col justify-between items-center gap-4"
-      :ui="{ container: 'flex-1', label: 'min-w-35' }"
+      class="flex max-sm:flex-col max-sm:items-start justify-between items-center gap-4"
+      :ui="{ container: 'flex-1 max-sm:w-full', label: 'min-w-35' }"
     >
       <UInput
         v-model="meeting.end_time"
@@ -86,8 +86,8 @@
       name="location_type"
       label="Modalidade"
       required
-      class="flex max-sm:flex-col justify-between items-center gap-4"
-      :ui="{ container: 'flex-1', label: 'min-w-35' }"
+      class="flex max-sm:flex-col max-sm:items-start justify-between items-center gap-4"
+      :ui="{ container: 'flex-1 max-sm:w-full', label: 'min-w-35' }"
     >
       <URadioGroup
         v-model="meeting.meeting_type"
@@ -106,8 +106,8 @@
       name="location"
       label="Local"
       required
-      class="flex max-sm:flex-col justify-between items-center gap-4"
-      :ui="{ container: 'flex-1', label: 'min-w-35' }"
+      class="flex max-sm:flex-col max-sm:items-start justify-between items-center gap-4"
+      :ui="{ container: 'flex-1 max-sm:w-full', label: 'min-w-35' }"
     >
       <UInput v-model="meeting.location" autocomplete="off" class="w-full" />
     </UFormField>
@@ -117,8 +117,8 @@
       name="meeting_url"
       label="Link da reunião"
       required
-      class="flex max-sm:flex-col justify-between items-center gap-4"
-      :ui="{ container: 'flex-1', label: 'min-w-35' }"
+      class="flex max-sm:flex-col max-sm:items-start justify-between items-center gap-4"
+      :ui="{ container: 'flex-1 max-sm:w-full', label: 'min-w-35' }"
     >
       <UInput v-model="meeting.meeting_url" autocomplete="off" class="w-full" />
     </UFormField>

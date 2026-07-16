@@ -4,7 +4,7 @@
       v-for="meeting in props.meetings"
       :key="meeting.id"
       variant="subtle"
-      class="rounded min-w-100 mb-5"
+      class="rounded lg:min-w-100 mb-5"
     >
       <template #header>
         <div>

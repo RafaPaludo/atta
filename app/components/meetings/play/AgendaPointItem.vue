@@ -2,65 +2,86 @@
   <div v-if="!isDeleted">
     <UCard
       :variant="isResolved ? 'soft' : 'subtle'"
-      :ui="{ body: 'p-2 sm:p-2' }"
+      :ui="{ body: 'p-3 sm:p-4' }"
+      class="transition-all duration-200 hover:shadow-sm"
     >
-      <div class="flex items-center gap-4">
+      <!-- Linha principal: checkbox + conteúdo + botão deletar -->
+      <div class="flex items-start gap-3 sm:gap-4">
+        <!-- Checkbox -->
         <UCheckbox
           :disabled="disabledActions"
           :model-value="isResolved"
+          class="mt-1 flex-shrink-0"
           @update:model-value="toggleAgendaPointStatus"
         />
 
-        <span
-          class="font-semibold"
-          :class="{ 'line-through text-muted': isResolved }"
-        >
-          {{ currentAgendaPoint.content }}
-        </span>
+        <!-- Conteúdo principal -->
+        <div class="flex-1 min-w-0">
+          <span
+            class="text-sm sm:text-base font-semibold break-words"
+            :class="{ 'line-through text-muted': isResolved }"
+          >
+            {{ currentAgendaPoint.content }}
+          </span>
+        </div>
 
+        <!-- Botão deletar -->
         <UButton
           label="Deletar"
           icon="i-lucide-trash"
           color="error"
           variant="ghost"
           size="xs"
-          class="ml-auto"
+          class="flex-shrink-0 -mr-1"
           :disabled="disabledActions"
           @click="deleteAgendaPoint"
         />
       </div>
 
+      <!-- Informações adicionais (responsivas) -->
       <div
-        class="ml-8 text-[14px] text-muted"
+        class="mt-2 sm:mt-3 ml-7 sm:ml-8 text-xs sm:text-sm text-muted"
         :class="{ 'line-through opacity-70': isResolved }"
       >
-        <div class="flex gap-6 my-1">
-          <div class="flex items-center gap-1">
+        <!-- Layout flexível que se adapta -->
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+          <!-- Responsável -->
+          <div class="flex items-center gap-1.5">
             <UIcon
               name="i-lucide-user"
-              class="size-4"
+              class="size-3.5 sm:size-4 flex-shrink-0"
             />
-            <span>
+            <span class="truncate max-w-[100px] sm:max-w-[200px]">
               {{ participantAssignedToAgendaPoint.name }}
             </span>
           </div>
 
-          <div class="flex items-center gap-1">
+          <!-- Separador (escondido no mobile) -->
+          <span class="text-gray-300 dark:text-gray-600 hidden xs:inline">•</span>
+
+          <!-- Data de vencimento -->
+          <div class="flex items-center gap-1.5">
             <UIcon
               name="i-lucide-calendar-clock"
-              class="size-4"
+              class="size-3.5 sm:size-4 flex-shrink-0"
             />
-            {{ convertTimeStampzToLocalDate(currentAgendaPoint.due_date) }}
+            <span class="whitespace-nowrap">
+              {{ convertTimeStampzToLocalDate(currentAgendaPoint.due_date) }}
+            </span>
           </div>
-        </div>
 
-        <UBadge
-          class="font-bold rounded-full"
-          size="sm"
-          :color="isResolved ? 'warning' : 'success'"
-        >
-          {{ isResolved ? 'Resolvido' : 'Pendente' }}
-        </UBadge>
+          <!-- Separador (escondido no mobile) -->
+          <span class="text-gray-300 dark:text-gray-600 hidden xs:inline">•</span>
+
+          <!-- Badge de status -->
+          <UBadge
+            class="font-bold rounded-full"
+            size="sm"
+            :color="isResolved ? 'warning' : 'success'"
+          >
+            {{ isResolved ? 'Resolvido' : 'Pendente' }}
+          </UBadge>
+        </div>
       </div>
     </UCard>
   </div>

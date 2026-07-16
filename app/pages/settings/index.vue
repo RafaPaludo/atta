@@ -32,7 +32,7 @@
         <UInput
           v-model="profile.name"
           autocomplete="off"
-          class="w-90"
+          class="w-75"
         />
       </UFormField>
       <USeparator />
@@ -47,7 +47,7 @@
           v-model="profile.email"
           type="email"
           autocomplete="off"
-          class="w-90"
+          class="w-75"
         />
       </UFormField>
       <USeparator />
@@ -64,7 +64,7 @@
           label="Telefone"
           required
           autocomplete="off"
-          class="w-90"
+          class="w-75"
         />
       </UFormField>
       <USeparator />
@@ -105,7 +105,7 @@
           v-model="profile.bio"
           :rows="5"
           autoresize
-          class="w-90"
+          class="w-75"
         />
       </UFormField>
     </UPageCard>
