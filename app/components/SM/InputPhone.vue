@@ -13,7 +13,7 @@
 
 <script setup>
 const props = defineProps({
-  modelValue: String | undefined, // pai recebe só dígitos
+  modelValue: String, // pai recebe só dígitos
   name: String,
   label: String,
   required: Boolean

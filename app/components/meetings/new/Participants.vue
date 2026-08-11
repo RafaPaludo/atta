@@ -87,7 +87,10 @@ const formState = reactive({})
 
 // Lista de participantes adicionados
 // Estado com os contatos escolhidos
-const selectedParticipants = defineModel({ default: [] })
+const selectedParticipants = defineModel({
+  type: Array,
+  default: []
+})
 const contacts = ref([]) // guarda os objetos, não só ids
 const searchTerm = ref('')
 

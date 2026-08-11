@@ -167,7 +167,9 @@ import { DateFormatter, getLocalTimeZone, today } from '@internationalized/date'
 
 const df = new DateFormatter('pt-BR', { dateStyle: 'medium' })
 
-const meeting = defineModel()
+const meeting = defineModel({
+  type: String
+})
 
 const localTypes = ref(['presencial', 'online'])
 
