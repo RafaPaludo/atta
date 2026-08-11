@@ -8,7 +8,9 @@
 </template>
 
 <script setup>
-const props = defineProps(['error'])
+const props = defineProps({
+  error: Object
+})
 
 const errorStatusFriendly = {
   statusCode: props.error.statusCode || 404,

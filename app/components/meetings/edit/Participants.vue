@@ -76,7 +76,10 @@ const schema = z.array(
   })
 )
 
-const selectedParticipants = defineModel({ default: [] })
+const selectedParticipants = defineModel({
+  type: Array,
+  default: []
+})
 const contacts = ref([])
 
 function removeParticipant(index) {
